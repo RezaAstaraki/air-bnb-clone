@@ -49,6 +49,10 @@ INSTALLED_APPS = [
     'rest_framework',
 
 
+
+    'property',
+
+
 ]
 
 MIDDLEWARE = [
