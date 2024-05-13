@@ -1,19 +1,19 @@
 
+from dotenv import load_dotenv
 from pathlib import Path
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-from dotenv import load_dotenv
 
 load_dotenv(BASE_DIR/'.env.dev')
+WEBSITE_URL = os.environ.get('WEBSITE_URL')
 
 print('**********************************')
-print(os.environ.get('CORS_ALLOW_HEADERS').split(','))
+print(WEBSITE_URL)
 
 print('**********************************')
-
 
 
 # Quick-start development settings - unsuitable for production
@@ -31,7 +31,7 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 # CORS_ALLOW_HEADERS = os.environ.get('CORS_ALLOW_HEADERS').split(',')
 
-CORS_ALLOW_ALL_ORIGINS=True
+CORS_ALLOW_ALL_ORIGINS = True
 
 
 # Application definition
@@ -141,3 +141,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
