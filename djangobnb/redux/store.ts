@@ -1,12 +1,20 @@
 import { configureStore } from '@reduxjs/toolkit'
 import loginModal from './features/modal/loginSlice'
 import signup from './features/modal/signupSlice'
+import { propertyApi } from './features/servicess/property/propertyApi'
+
 
 export const store = configureStore({
   reducer: {
     loginModal: loginModal,
-    signup:signup,
+    signup: signup,
+    
+    [propertyApi.reducerPath]:propertyApi.reducer,
   },
+
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(propertyApi.middleware),
+
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself

@@ -1,24 +1,36 @@
 import Image from "next/image";
 import React from "react";
 
-const PropertyListItem = () => {
+interface PropertyListItemProps {
+  id: string;
+  title: string;
+  price_per_night: string;
+  image_url: string;
+}
+
+const PropertyListItem: React.FC<PropertyListItemProps> = ({
+  id,
+  title,
+  price_per_night,
+  image_url,
+}: PropertyListItemProps) => {
   return (
     <div className="cursor-pointer">
       <div className="relative overflow-hidden aspect-square rounded-xl">
         <Image
-          src="/beach_1.jpg"
-          alt="Beach House"
+          src={image_url}
+          alt={title}
           fill
           className="hover:scale-110 object-cover  transition h-full w-full"
           sizes="(max-width: 768px) 768px,(max-width: 1200px) 768px,768px,"
         />
       </div>
       <div className="mt-2">
-        <p className="text-lg font-bold">Property Name</p>
+        <p className="text-lg font-bold">{title}</p>
       </div>
       <div className="mt-2">
         <p className="text-sm text-gray-500">
-          <strong>200$</strong> per night
+          <strong>{price_per_night}$</strong> per night
         </p>
       </div>
     </div>
