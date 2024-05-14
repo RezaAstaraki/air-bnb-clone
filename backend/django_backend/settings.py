@@ -108,17 +108,26 @@ DATABASES = {
 
 
 ########### add restFrameWork setting ##################
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
 
 
 ########### Simple JWT setting ##################
 # SIMPLE_JWT = {
 #     'AUTH_HEADER_TYPES': ('JWT',),
 # }
+
+
+############ Djoser settings ###################
+DJOSER = {
+    'SERIALIZERS': {
+        'user': 'userAccount.serializers.CustomUserSerializer',
+        'current_user': 'userAccount.serializers.CustomUserSerializer',
+    }
+}
 
 
 # Password validation
