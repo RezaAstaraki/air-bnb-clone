@@ -49,7 +49,7 @@ INSTALLED_APPS = [
     'rest_framework',
 
 
-
+    'userAccount',
     'property',
 
 
@@ -70,6 +70,8 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'django_backend.urls'
+
+AUTH_USER_MODEL = "userAccount.User"
 
 TEMPLATES = [
     {
