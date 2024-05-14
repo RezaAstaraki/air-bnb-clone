@@ -48,6 +48,10 @@ INSTALLED_APPS = [
 
     'rest_framework',
 
+    'djoser',
+
+    '',
+
 
     'userAccount',
     'property',
