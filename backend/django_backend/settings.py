@@ -50,7 +50,7 @@ INSTALLED_APPS = [
 
     'djoser',
 
-    '',
+
 
 
     'userAccount',
