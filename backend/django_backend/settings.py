@@ -108,11 +108,11 @@ DATABASES = {
 
 
 ########### add restFrameWork setting ##################
-REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
-    ),
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_AUTHENTICATION_CLASSES': (
+#         'rest_framework_simplejwt.authentication.JWTAuthentication',
+#     ),
+# }
 
 
 ########### Simple JWT setting ##################
@@ -124,16 +124,28 @@ REST_FRAMEWORK = {
 ############ Djoser settings ###################
 DJOSER = {
 
+    'PASSWORD_RESET_CONFIRM_URL': '#/password-reset/confirm/{uid}/{token}',
+    # 'USERNAME_RESET_CONFIRM_URL': False,
+    'ACTIVATION_URL': '#/activate/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'PASSWORD_CHANGED_EMAIL_CONFIRMATION': True,
+    'USER_CREATE_PASSWORD_RETYPE': True,
+    'SET_PASSWORD_RETYPE': True,
+    'PASSWORD_RESET_CONFIRM_RETYPE': True,
+    'LOGOUT_ON_PASSWORD_CHANGE': True,
+    'TOKEN_MODEL': None
 
 
 
 
 
 
-    'SERIALIZERS': {
-        'user': 'userAccount.serializers.CustomUserSerializer',
-        'current_user': 'userAccount.serializers.CustomUserSerializer',
-    }
+
+
+    # 'SERIALIZERS': {
+    #     'user': 'userAccount.serializers.CustomUserSerializer',
+    #     'current_user': 'userAccount.serializers.CustomUserSerializer',
+    # }
 }
 
 
