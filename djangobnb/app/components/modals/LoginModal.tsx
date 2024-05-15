@@ -8,6 +8,7 @@ import { RootState } from "@/redux/store";
 import { close } from "@/redux/features/modal/loginSlice";
 import { useLoginMutation } from "@/redux/features/servicess/auth/authAPI";
 import { useRouter } from "next/navigation";
+import { handelLogin } from "@/app/libs/actions/handelLogin";
 
 const LoginModal = () => {
   const [error, setError] = useState([]);
@@ -29,10 +30,14 @@ const LoginModal = () => {
         console.log("first");
         console.log(JSON.stringify(response));
         dispatch(close());
+        handelLogin(response.access, response.refresh);
         router.push("/");
       })
       .catch((e) => {
         setError(Object.values(e.data));
+        // setTimeout(() => {
+        //   setError([]);
+        // }, 5000);
         console.log("error = ", Object.values(e));
       });
   };
