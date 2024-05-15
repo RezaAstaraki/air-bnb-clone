@@ -37,12 +37,14 @@ const UserNav = () => {
           <MenuLink
             onClick={() => {
               dispatch(openLogin());
+              setIsOpen(false);
             }}
             label="Log in"
           />
           <MenuLink
             onClick={() => {
               dispatch(openSignUp());
+              setIsOpen(false);
             }}
             label="Sign up"
           />
