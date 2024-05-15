@@ -52,14 +52,12 @@ const LoginModal = () => {
         <input
           type="email"
           name="email"
-          id=""
           placeholder="Your e-mail address"
           className="w-full h-[54px] border border-gray-100 rounded-xl px-4 "
         />
         <input
           type="password"
           name="password"
-          id=""
           placeholder="Your password"
           className="w-full h-[54px] border border-gray-100 rounded-xl px-4 "
         />

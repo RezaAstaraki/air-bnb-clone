@@ -6,13 +6,15 @@ export async function handelLogin(accessToken: string, refreshToken: string) {
         httpOnly: true,
         secure: true,
         maxAge: 60 * 60,
-        path: '/'
+        path: '/',
+        sameSite:"none",
     });
     cookies().set('session_refresh_token', refreshToken, {
         httpOnly: true,
         secure: true,
         maxAge: 60 * 60*24*7,
-        path: '/'
+        path: '/',
+        sameSite:"none",
     });
     
 }
