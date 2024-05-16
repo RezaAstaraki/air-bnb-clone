@@ -18,3 +18,11 @@ export async function handelLogin(accessToken: string, refreshToken: string) {
     });
     
 }
+
+export async function getAccessCookie() {
+    const access =await cookies().get("session_access_token");
+
+    return access
+    
+}
+

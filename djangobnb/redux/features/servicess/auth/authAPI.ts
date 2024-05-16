@@ -1,3 +1,4 @@
+'use client'
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // import type { Pokemon } from './types'
 
@@ -10,13 +11,35 @@ export const authApi = createApi({
       query: ({ email, password }) => ({
         url: `auth/jwt/create/`,
         method: 'POST',
-        headers:{'Content-Type': 'application/json'},
+        headers: {
+          'Content-Type': 'application/json',
+          
+          
+          
+
+        },
         body:{email:email,password:password},
       }),
     }),
+
+    getCurrentUser: builder.query<any, any>({
+      query:(access )=> ({
+        url: 'auth/users/me/',
+        method: "GET",
+        headers: {
+          'Authorization': `Bearer ${access}`
+        },
+
+      })
+    })
+
+
+
+
+
   }),
 })
 
 // Export hooks for usage in functional components, which are
 // auto-generated based on the defined endpoints
-export const {useLoginMutation  } = authApi
+export const {useLoginMutation,useGetCurrentUserQuery  } = authApi

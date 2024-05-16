@@ -8,7 +8,7 @@ import { RootState } from "@/redux/store";
 import { close } from "@/redux/features/modal/loginSlice";
 import { useLoginMutation } from "@/redux/features/servicess/auth/authAPI";
 import { useRouter } from "next/navigation";
-import { handelLogin } from "@/app/libs/actions/handelLogin";
+import { handelLogin } from "@/app/libs/actions/actions";
 
 const LoginModal = () => {
   const [error, setError] = useState([]);
