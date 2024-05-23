@@ -1,17 +1,13 @@
-"use client";
-
 import Categories from "./components/navbar/Categories";
 import PropertyList from "./components/properties/PropertyList";
 
-import { useGetPropertiesListQuery } from "@/redux/features/servicess/property/propertyApi";
-
-export default function Home() {
-  const { data, error, isLoading } = useGetPropertiesListQuery(undefined);
-
+export default async function Home() {
+  const res = await fetch("http://127.0.0.1:8000/api/properties/", {
+    cache: "no-store",
+  });
+  const data = await res.json();
   return (
     <main className="max-w-[1500px] mx-auto px-6">
-      {/* <>{JSON.stringify(data)}</> */}
-
       <Categories />
       <div className="mt-4 grid grid-col-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
         {data && <PropertyList list={data} />}

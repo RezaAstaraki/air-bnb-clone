@@ -27,10 +27,10 @@ const LoginModal = () => {
     login({ email: email, password: password })
       .unwrap()
       .then((response) => {
-        console.log("first");
         console.log(JSON.stringify(response));
         dispatch(close());
         handelLogin(response.access, response.refresh);
+        console.log(response.access, response.refresh);
         router.push("/");
       })
       .catch((e) => {
