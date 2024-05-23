@@ -14,7 +14,7 @@ export async function serverLogin(preState:any,formData:FormData) {
         }
     )
     const response = await res.json()
-    
+
 
     handelCookies(response.access, response.refresh)
 
@@ -45,6 +45,22 @@ export async function getAccessCookie() {
     const access = await cookies().get("session_access_token");
 
     return access
+    
+}
+
+export async function getCurrentUser() {
+    const access =await getAccessCookie()
+    const res = await fetch('http://127.0.0.1:8000/api/auth/users/me/',
+        {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer ${access?.value}`,            
+            },
+        }
+    )
+    const response = await res.json()
+    // console.log('response', response)
+    return response
     
 }
 
