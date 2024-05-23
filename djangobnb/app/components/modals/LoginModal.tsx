@@ -1,45 +1,31 @@
 "use client";
 
+import { useFormState } from "react-dom";
 import React, { FormEvent, useState } from "react";
 import Modal from "./Modal";
 import CustomButton from "../forms/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/redux/store";
 import { close } from "@/redux/features/modal/loginSlice";
-import { useLoginMutation } from "@/redux/features/servicess/auth/authAPI";
 import { useRouter } from "next/navigation";
-import { handelLogin } from "@/app/libs/actions/actions";
+import { serverLogin } from "@/app/libs/actions/actions";
 
 const LoginModal = () => {
   const [error, setError] = useState([]);
   const router = useRouter();
 
-  const [login, { isLoading }] = useLoginMutation();
+  // const { pending } = useFormStatus();
+
+  const [state, formAction] = useFormState(serverLogin, null);
 
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    const formData = new FormData(event.currentTarget);
+    const fromData = new FormData(event.currentTarget);
+    formAction(fromData);
 
-    const email = formData.get("email") as string;
-    const password = formData.get("password") as string;
-
-    login({ email: email, password: password })
-      .unwrap()
-      .then((response) => {
-        console.log(JSON.stringify(response));
-        dispatch(close());
-        handelLogin(response.access, response.refresh);
-        console.log(response.access, response.refresh);
-        router.push("/");
-      })
-      .catch((e) => {
-        setError(Object.values(e.data));
-        // setTimeout(() => {
-        //   setError([]);
-        // }, 5000);
-        console.log("error = ", Object.values(e));
-      });
+    dispatch(close());
+    router.push("/");
   };
 
   const dispatch = useDispatch();
@@ -48,7 +34,11 @@ const LoginModal = () => {
   const Content = (
     <>
       <h2 className="mb-6 text-2xl">Welcome to Djangobnb, please log in</h2>
-      <form className="space-y-4" onSubmit={onSubmit}>
+      <form
+        // action={formAction}
+        onSubmit={onSubmit}
+        className="space-y-4"
+      >
         <input
           type="email"
           name="email"
@@ -67,10 +57,7 @@ const LoginModal = () => {
           </div>
         )}
 
-        <CustomButton
-          isLoading={isLoading}
-          label={isLoading ? "loading..." : "Submit"}
-        />
+        <CustomButton label="Submit" />
       </form>
     </>
   );
