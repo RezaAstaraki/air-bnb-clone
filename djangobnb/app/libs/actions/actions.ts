@@ -16,14 +16,14 @@ export async function serverLogin(preState:any,formData:FormData) {
     const response = await res.json()
     
 
-    handelLogin(response.access, response.refresh)
+    handelCookies(response.access, response.refresh)
 
 
     return response
     
 }
 
-export async function handelLogin(accessToken: string, refreshToken: string) {
+export async function handelCookies(accessToken: string, refreshToken: string) {
     cookies().set('session_access_token', accessToken, {
         httpOnly: true,
         secure: true,
@@ -42,7 +42,6 @@ export async function handelLogin(accessToken: string, refreshToken: string) {
 }
 
 export async function getAccessCookie() {
-    'use server'
     const access = await cookies().get("session_access_token");
 
     return access
