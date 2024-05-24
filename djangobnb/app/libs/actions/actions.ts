@@ -2,7 +2,7 @@
 import { cookies } from "next/headers"
 
 
-export async function serverLogin(preState:any,formData:FormData) {
+export async function serverLogin(formData:FormData) {
     const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/create/',
         {
             headers:{'content-Type':'application/json',},
