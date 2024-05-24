@@ -5,12 +5,9 @@ import SearchFilters from "./SearchFilters";
 import UserNav from "./UserNav";
 import AddPropertyButton from "./AddPropertyButton";
 import { getCurrentUser } from "@/app/libs/actions/actions";
+import CurrentUser from "../server components/CurrentUser";
 
 const Navbar = async () => {
-  const user = await getCurrentUser();
-
-  console.log("user", user.name);
-
   return (
     <nav className="w-full fixed top-0 left-0 py-6 border-b bg-white z-10">
       <div className="max-w-[1500px] mx-auto px-6">
@@ -24,7 +21,7 @@ const Navbar = async () => {
                 src="/logo.png"
                 priority
               />
-              {user.name}
+              <CurrentUser />
             </div>
           </Link>
           <div className="flex space-x-6">
