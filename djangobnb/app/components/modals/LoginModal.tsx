@@ -1,7 +1,6 @@
 "use client";
 
-import { useFormState } from "react-dom";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, { FormEvent, useState } from "react";
 import Modal from "./Modal";
 import CustomButton from "../forms/CustomButton";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,18 +8,16 @@ import { RootState } from "@/redux/store";
 import { close } from "@/redux/features/modal/loginSlice";
 import { useRouter } from "next/navigation";
 import { serverLogin } from "@/app/libs/actions/actions";
+import { finishFirstLoad, setAuth } from "@/redux/features/auth/authSlice";
 
-const initialState = {
-  message: "",
-};
 const LoginModal = () => {
   const router = useRouter();
   const [error, setError] = useState(null);
   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    const fromData = new FormData(event.currentTarget);
-    serverLogin(fromData);
+    dispatch(close());
+    dispatch(setAuth());
+    dispatch(finishFirstLoad());
+    router.push("/");
   };
 
   const dispatch = useDispatch();
@@ -29,7 +26,19 @@ const LoginModal = () => {
   const Content = (
     <>
       <h2 className="mb-6 text-2xl">Welcome to Djangobnb, please log in</h2>
-      <form onSubmit={onSubmit} className="space-y-4">
+      <form
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          const res = await serverLogin(formData);
+          if (res?.resOK) {
+            onSubmit(e);
+          } else {
+            setError(res?.message);
+          }
+        }}
+        className="space-y-4"
+      >
         <input
           type="email"
           name="email"
@@ -44,7 +53,15 @@ const LoginModal = () => {
         />
         {error && (
           <div className="p-5 bg-airbnb text-white rounded-xl opacity-80">
-            {error}
+            <ul>
+              {Object.entries(error).map(([key, value]) => {
+                return (
+                  <li key={key}>
+                    {key} --&gt; {String(value)}
+                  </li>
+                );
+              })}
+            </ul>
           </div>
         )}
 

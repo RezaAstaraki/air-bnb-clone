@@ -5,8 +5,8 @@ import { cookies } from "next/headers"
 export async function serverLogin(formData:FormData) {
     const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/create/',
         {
-            headers:{'content-Type':'application/json',},
             method: 'POST',
+            headers:{'content-Type':'application/json',},
             body: JSON.stringify({
                 email: formData.get('email') as string,
                 'password':formData.get('password') as string,
@@ -14,12 +14,19 @@ export async function serverLogin(formData:FormData) {
         }
     )
     const response = await res.json()
-
-
-    handelCookies(response.access, response.refresh)
-
-
-    return response
+    if (!res.ok) {
+        const err = response
+        return {
+            resOK: res.ok,
+            message: response
+        }   
+    } else {
+        handelCookies(response.access, response.refresh)
+        return {
+            resOK: res.ok,
+            message: null
+        }
+    }
     
 }
 
