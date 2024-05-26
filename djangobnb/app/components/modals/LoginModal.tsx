@@ -19,6 +19,7 @@ const LoginModal = () => {
     dispatch(finishFirstLoad());
     router.push("/");
   };
+  const [loading, setLoading] = useState(false);
 
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.loginModal.isOpen);
@@ -29,6 +30,7 @@ const LoginModal = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
+          setLoading(true);
           const formData = new FormData(e.currentTarget);
           const res = await serverLogin(formData);
           if (res?.resOK) {
@@ -36,6 +38,7 @@ const LoginModal = () => {
           } else {
             setError(res?.message);
           }
+          setLoading(false);
         }}
         className="space-y-4"
       >
@@ -65,7 +68,7 @@ const LoginModal = () => {
           </div>
         )}
 
-        <CustomButton label="Submit" />
+        <CustomButton isLoading={loading} label="Login" />
       </form>
     </>
   );

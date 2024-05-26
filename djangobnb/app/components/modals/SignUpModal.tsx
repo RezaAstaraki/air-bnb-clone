@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 
 const SingUpModal = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const dispatch = useDispatch();
   const isOpen = useSelector((state: RootState) => state.signup.isOpen);
@@ -27,6 +28,7 @@ const SingUpModal = () => {
       <form
         onSubmit={async (e) => {
           e.preventDefault();
+          setLoading(true);
           const formData = new FormData(e.currentTarget);
           const res = await createUser(formData);
           console.log("res", res);
@@ -35,6 +37,7 @@ const SingUpModal = () => {
           } else {
             setError(res?.message);
           }
+          setLoading(false);
         }}
         className="space-y-4"
       >
@@ -77,7 +80,7 @@ const SingUpModal = () => {
           </div>
         )}
 
-        <CustomButton label="Submit" />
+        <CustomButton isLoading={loading} label="Sign up" />
       </form>
     </>
   );

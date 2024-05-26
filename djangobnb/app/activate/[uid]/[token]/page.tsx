@@ -4,6 +4,7 @@ import CustomButton from "@/app/components/forms/CustomButton";
 import { activateUser } from "@/app/libs/actions/actions";
 import { useDispatch } from "react-redux";
 import { open } from "@/redux/features/modal/loginSlice";
+import { useState } from "react";
 
 const ActivationPage = ({
   params,
@@ -13,8 +14,9 @@ const ActivationPage = ({
   //   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
   //     event.preventDefault();
   //   };
-
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+
   return (
     <div className="flex flex-col justify-center items-center w-full">
       <div className="text-xl text-gray-500 font-bold">
@@ -36,7 +38,11 @@ const ActivationPage = ({
         }}
         className="flex text-center justify-center items-center h-[200px]"
       >
-        <CustomButton label="activate you account" className="px-3" />
+        <CustomButton
+          isLoading={loading}
+          label="activate you account"
+          className="px-3"
+        />
         <input name="token" type="hidden" value={params.token} />
         <input name="uid" type="hidden" value={params.uid} />
       </form>
