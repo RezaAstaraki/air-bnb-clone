@@ -2,9 +2,6 @@
 
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { useCallback, useEffect, useState } from "react";
-import { close } from "@/redux/features/modal/loginSlice";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "@/redux/store";
 
 interface ModalProps {
   label: string;

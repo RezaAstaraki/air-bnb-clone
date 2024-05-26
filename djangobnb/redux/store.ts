@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import loginModal from './features/modal/loginSlice'
 import signup from './features/modal/signupSlice'
 import  authReducer  from './features/auth/authSlice'
+import addPropertyReducer from './features/modal/addPropertySlice'
 
 
 
@@ -9,7 +10,8 @@ export const store = configureStore({
   reducer: {
     loginModal: loginModal,
     signup: signup,
-    auth:authReducer,
+    auth: authReducer,
+    addProperty :addPropertyReducer,
     
   },
 
