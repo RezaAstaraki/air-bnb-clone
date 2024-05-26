@@ -1,6 +1,7 @@
 
 from dotenv import load_dotenv
 from pathlib import Path
+from datetime import timedelta
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -149,6 +150,34 @@ DJOSER = {
         'current_user': 'userAccount.serializers.CustomUserSerializer',
     }
 }
+
+
+# Email Settings
+# DEFAULT_FROM_EMAIL = os.environ.get('AWS_SES_FROM_EMAIL')
+
+# EMAIL_BACKEND = 'django_ses.SESBackend'
+
+# AWS_SES_ACCESS_KEY_ID = os.environ.get('AWS_SES_ACCESS_KEY_ID')
+# AWS_SES_SECRET_ACCESS_KEY = os.environ.get('AWS_SES_SECRET_ACCESS_KEY')
+# AWS_SES_REGION_NAME = os.environ.get('AWS_SES_REGION_NAME')
+# AWS_SES_REGION_ENDPOINT = f'email.{AWS_SES_REGION_NAME}.amazonaws.com'
+# AWS_SES_FROM_EMAIL = os.environ.get('AWS_SES_FROM_EMAIL')
+# USE_SES_V2 = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+# DJOSER_EMAIL = EMAIL_HOST_USER
+
+DOMAIN = os.environ.get('DOMAIN')
+SITE_NAME = os.environ.get('SITE_NAME')
 
 
 # Password validation

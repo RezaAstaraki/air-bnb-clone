@@ -2,6 +2,40 @@
 import { cookies } from "next/headers"
 
 
+export async function createUser(formData: FormData) {
+    const res = await fetch('http://127.0.0.1:8000/api/auth/users/',
+        {
+            method: 'POST',
+            headers:{'content-Type':'application/json',},
+            body: JSON.stringify({
+                name: formData.get('name') as string,
+                email: formData.get('email') as string,
+                'password':formData.get('password') as string,
+                're_password':formData.get('re_password') as string,
+            })
+        }
+    )
+    const response = await res.json()
+    if (!res.ok) {
+        const err = response
+        return {
+            resOK: res.ok,
+            message: response
+        }   
+    } else {
+        handelCookies(response.access, response.refresh)
+        return {
+            resOK: res.ok,
+            message: null
+        }
+    }
+    
+}
+
+
+
+
+
 export async function serverLogin(formData:FormData) {
     const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/create/',
         {
@@ -74,5 +108,11 @@ export async function getCurrentUser() {
         console.log(error);
         
      }
+}
+
+export async function resetCookies() {
+    cookies().delete('session_access_token')
+    cookies().delete('session_refresh_token')
+    
 }
 

@@ -15,10 +15,13 @@ const  authSlice = createSlice({
         },
         finishFirstLoad: (state) => {
             state.firstLoad=false
-        }
+        },
+        logout: (state) => {
+            state.isAuth=false
+        },
     }
 
 })
 
 export default authSlice.reducer
-export const {setAuth,finishFirstLoad} = authSlice.actions
+export const {setAuth,finishFirstLoad,logout} = authSlice.actions

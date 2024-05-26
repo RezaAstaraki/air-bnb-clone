@@ -3,13 +3,16 @@
 import { Bars3Icon } from "@heroicons/react/24/solid";
 import { useState } from "react";
 import MenuLink from "./MenuLink";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { open as openSignUp } from "@/redux/features/modal/signupSlice";
 import { open as openLogin } from "@/redux/features/modal/loginSlice";
+import { RootState } from "@/redux/store";
+import LogoutButton from "./LogoutButton";
 
 const UserNav = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
+  const auth = useSelector((state: RootState) => state.auth.isAuth);
   return (
     <div className="p-2 relative border rounded-full inline-block">
       <button
@@ -32,25 +35,36 @@ const UserNav = () => {
           />
         </svg>
       </button>
-      {isOpen && (
-        <div className="w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer overflow-hidden">
-          <div>user</div>
-          <MenuLink
-            onClick={() => {
-              dispatch(openLogin());
-              setIsOpen(false);
-            }}
-            label="Log in"
-          />
-          <MenuLink
-            onClick={() => {
-              dispatch(openSignUp());
-              setIsOpen(false);
-            }}
-            label="Sign up"
-          />
-        </div>
-      )}
+      <div
+        className={`w-[220px] absolute top-[60px] right-0 bg-white border rounded-xl shadow-md flex flex-col cursor-pointer overflow-hidden transition-all duration-200 transform ${
+          isOpen
+            ? "opacity-100 scale-100 translate-y-5 "
+            : "opacity-0 scale-95 pointer-events-none"
+        }`}
+      >
+        {auth ? (
+          <>
+            <LogoutButton onClick={() => setIsOpen(false)} />
+          </>
+        ) : (
+          <>
+            <MenuLink
+              onClick={() => {
+                dispatch(openLogin());
+                setIsOpen(false);
+              }}
+              label="Log in"
+            />
+            <MenuLink
+              onClick={() => {
+                dispatch(openSignUp());
+                setIsOpen(false);
+              }}
+              label="Sign up"
+            />
+          </>
+        )}
+      </div>
     </div>
   );
 };
