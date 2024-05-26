@@ -8,11 +8,14 @@ import { open as openSignUp } from "@/redux/features/modal/signupSlice";
 import { open as openLogin } from "@/redux/features/modal/loginSlice";
 import { RootState } from "@/redux/store";
 import LogoutButton from "./LogoutButton";
+import { resetCookies } from "@/app/libs/actions/actions";
+import { useRouter } from "next/navigation";
 
 const UserNav = () => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const auth = useSelector((state: RootState) => state.auth.isAuth);
+  const router = useRouter();
   return (
     <div className="p-2 relative border rounded-full inline-block">
       <button
@@ -44,7 +47,13 @@ const UserNav = () => {
       >
         {auth ? (
           <>
-            <LogoutButton onClick={() => setIsOpen(false)} />
+            <LogoutButton
+              onClick={async () => {
+                setIsOpen(false);
+                resetCookies();
+                router.push("/");
+              }}
+            />
           </>
         ) : (
           <>

@@ -11,9 +11,6 @@ const ActivationPage = ({
 }: {
   params: { uid: string; token: string };
 }) => {
-  //   const onSubmit = (event: FormEvent<HTMLFormElement>) => {
-  //     event.preventDefault();
-  //   };
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
@@ -24,10 +21,11 @@ const ActivationPage = ({
       </div>
       <form
         onSubmit={async (e) => {
+          setLoading(true);
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
           const res = await activateUser(formData);
-          console.log(res);
+          // console.log(res);
           if (res.resOK) {
             dispatch(open());
           } else {
@@ -35,8 +33,9 @@ const ActivationPage = ({
               console.log(String(key[1]));
             });
           }
+          setLoading(false);
         }}
-        className="flex text-center justify-center items-center h-[200px]"
+        className="flex text-center justify-center items-center h-[200px] w-[200px]"
       >
         <CustomButton
           isLoading={loading}
