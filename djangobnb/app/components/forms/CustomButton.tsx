@@ -25,7 +25,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
         pending
           ? "bg-gray-500 hover:bg-gray-500"
           : "bg-airbnb hover:bg-airbnb-dark"
-      }${className}`}
+      } ${className}`}
     >
       {!pending ? label : "loading"}
     </button>
