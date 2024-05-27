@@ -5,6 +5,8 @@ interface CustomButtonProps {
   onClick?: () => void;
   className?: string;
   isLoading?: boolean;
+  disabled?: boolean;
+  type?: "button" | "reset" | "submit";
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
@@ -12,16 +14,18 @@ const CustomButton: React.FC<CustomButtonProps> = ({
   onClick,
   className,
   isLoading,
+  disabled,
+  type = "submit",
 }) => {
   return (
     <button
       role="button"
-      type="submit"
-      disabled={isLoading}
+      type={type}
+      disabled={isLoading || disabled}
       onClick={onClick}
       className={`text-center w-full py-4 text-white rounded-xl transition cursor-pointer ${
-        isLoading
-          ? "bg-gray-500 hover:bg-gray-500"
+        isLoading || disabled
+          ? "bg-gray-400 text-gray-200 cursor-not-allowed"
           : "bg-airbnb hover:bg-airbnb-dark"
       } ${className}`}
     >
