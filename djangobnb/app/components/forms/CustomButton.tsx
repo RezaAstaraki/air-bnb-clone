@@ -23,7 +23,7 @@ const CustomButton: React.FC<CustomButtonProps> = ({
       type={type}
       disabled={isLoading || disabled}
       onClick={onClick}
-      className={`text-center w-full py-4 text-white rounded-xl transition cursor-pointer ${
+      className={`text-center py-4 text-white rounded-xl transition cursor-pointer ${
         isLoading || disabled
           ? "bg-gray-400 text-gray-200 cursor-not-allowed"
           : "bg-airbnb hover:bg-airbnb-dark"

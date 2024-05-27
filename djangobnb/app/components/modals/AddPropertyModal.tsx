@@ -10,6 +10,9 @@ import CustomButton from "../forms/CustomButton";
 import Categories from "../navbar/Categories";
 import Image from "next/image";
 import CategoryIcon from "../addProperties/CategoryIcon";
+import SelectCountry, {
+  SelectCountryByValue,
+} from "../addProperties/SelectCountry";
 
 const AddPropertyModal = () => {
   const dispatch = useDispatch();
@@ -23,6 +26,7 @@ const AddPropertyModal = () => {
   const [bedrooms, setBedrooms] = useState(0);
   const [bathrooms, setBathrooms] = useState(0);
   const [guests, setGuests] = useState(0);
+  const [country, setCountry] = useState<SelectCountryByValue>();
 
   const categories = [
     { src: "/beach.jpg", text: "Beach" },
@@ -174,15 +178,11 @@ const AddPropertyModal = () => {
             <label htmlFor="title" className="self-start text-sm text-gray-700">
               Title
             </label>
-            <input
-              type="text"
-              name="title"
-              id="title"
-              className="border-gray-300 border-2 py-2 px-2 rounded-xl self-start w-full"
-              onChange={(e) => {
-                setTitle(e.target.value);
-              }}
-              value={title}
+
+            <SelectCountry
+              onChange={setCountry}
+              value={country}
+              className="w-full"
             />
           </>
         )}

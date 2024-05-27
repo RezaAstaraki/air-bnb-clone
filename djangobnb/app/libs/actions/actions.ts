@@ -94,14 +94,14 @@ export async function handelCookies(accessToken: string, refreshToken: string) {
     cookies().set('session_access_token', accessToken, {
         httpOnly: true,
         secure: true,
-        maxAge:60*60,
+        maxAge: 60 * 15 ,
         path: '/',
         sameSite:"none",
     });
     cookies().set('session_refresh_token', refreshToken, {
         httpOnly: true,
         secure: true,
-        maxAge: 60 * 60*24*7,
+        maxAge: 60 * 60 * 24 * 7,
         path: '/',
         sameSite:"none",
     });
