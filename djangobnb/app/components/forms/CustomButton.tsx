@@ -4,7 +4,7 @@ interface CustomButtonProps {
   label: string;
   onClick?: () => void;
   className?: string;
-  isLoading: boolean;
+  isLoading?: boolean;
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({

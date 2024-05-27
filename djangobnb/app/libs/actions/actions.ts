@@ -94,7 +94,7 @@ export async function handelCookies(accessToken: string, refreshToken: string) {
     cookies().set('session_access_token', accessToken, {
         httpOnly: true,
         secure: true,
-        maxAge: 60 * 60,
+        maxAge:60*60,
         path: '/',
         sameSite:"none",
     });
@@ -125,6 +125,7 @@ export async function getCurrentUser() {
                 headers: {
                     'Authorization': `Bearer ${access?.value}`,            
                 },
+                cache:'force-cache'
             }
         )
         const response = await res.json()

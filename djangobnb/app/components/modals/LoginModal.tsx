@@ -9,6 +9,7 @@ import { close } from "@/redux/features/modal/loginSlice";
 import { useRouter } from "next/navigation";
 import { serverLogin } from "@/app/libs/actions/actions";
 import { finishFirstLoad, setAuth } from "@/redux/features/auth/authSlice";
+import { open } from "@/redux/features/modal/signupSlice";
 
 const LoginModal = () => {
   const router = useRouter();
@@ -69,6 +70,15 @@ const LoginModal = () => {
         )}
 
         <CustomButton isLoading={loading} label="Login" />
+        <div
+          className="text-xs text-blue-500 cursor-pointer "
+          onClick={() => {
+            dispatch(close());
+            dispatch(open());
+          }}
+        >
+          i don't have account
+        </div>
       </form>
     </>
   );

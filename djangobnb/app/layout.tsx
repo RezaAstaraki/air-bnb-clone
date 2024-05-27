@@ -6,7 +6,7 @@ import Navbar from "./components/navbar/Navbar";
 import NextProvider from "@/redux/NextProvider";
 import LoginModal from "./components/modals/LoginModal";
 import SingUpModal from "./components/modals/SignUpModal";
-import AddPropertyModal from "./components/modals/addPropertyModal";
+import AddPropertyModal from "./components/modals/AddPropertyModal";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,8 +27,8 @@ export default function RootLayout({
           <Navbar />
           <div className="pt-32">{children}</div>
           <SingUpModal />
-          <LoginModal />
           <AddPropertyModal />
+          <LoginModal />
         </body>
       </html>
     </NextProvider>

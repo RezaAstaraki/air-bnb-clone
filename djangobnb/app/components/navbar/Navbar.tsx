@@ -1,10 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
 import SearchFilters from "./SearchFilters";
 import UserNav from "./UserNav";
 import AddPropertyButton from "./AddPropertyButton";
-import { getCurrentUser } from "@/app/libs/actions/actions";
 import CurrentUser from "../server components/CurrentUser";
 
 const Navbar = async () => {
@@ -21,7 +19,6 @@ const Navbar = async () => {
                 src="/logo.png"
                 priority
               />
-              <CurrentUser />
             </div>
           </Link>
           <div className="flex space-x-6">
@@ -32,6 +29,7 @@ const Navbar = async () => {
             <UserNav />
           </div>
         </div>
+        <CurrentUser />
       </div>
     </nav>
   );

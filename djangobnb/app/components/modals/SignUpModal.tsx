@@ -8,6 +8,7 @@ import { RootState } from "@/redux/store";
 import { close } from "@/redux/features/modal/signupSlice";
 import { createUser } from "@/app/libs/actions/actions";
 import { useRouter } from "next/navigation";
+import { open } from "@/redux/features/modal/loginSlice";
 
 const SingUpModal = () => {
   const router = useRouter();
@@ -81,6 +82,16 @@ const SingUpModal = () => {
         )}
 
         <CustomButton isLoading={loading} label="Sign up" />
+
+        <div
+          className="text-xs text-blue-500 cursor-pointer "
+          onClick={() => {
+            dispatch(close());
+            dispatch(open());
+          }}
+        >
+          i already have account
+        </div>
       </form>
     </>
   );
