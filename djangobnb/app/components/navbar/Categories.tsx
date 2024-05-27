@@ -1,7 +1,7 @@
 import Image from "next/image";
 import React from "react";
 
-const categories = [
+export const categories = [
   { src: "/beach.jpg", text: "Beach" },
   { src: "/villas.jpg", text: "Villas" },
   { src: "/cabins.jpg", text: "Cabins" },

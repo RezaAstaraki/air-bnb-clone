@@ -1,4 +1,5 @@
 'use server'
+import { access } from "fs"
 import { cookies } from "next/headers"
 
 
@@ -143,3 +144,17 @@ export async function resetCookies() {
     
 }
 
+export async function submitPropertyData(formData: FormData) {
+    const access = getAccessCookie()
+    const res = await fetch('http://127.0.0.1:8000/api/properties/create/',
+        {
+            method: 'POST',
+            headers: {
+                'authorization' : `Bearer ${access}`
+            }
+            
+        }
+    )
+    console.log(res)
+    
+} 
