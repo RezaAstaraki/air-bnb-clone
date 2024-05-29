@@ -9,7 +9,7 @@ from userAccount.models import User
 class Property(models.Model):
     id = models.UUIDField(primary_key=True, editable=False, default=uuid.uuid4)
 
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    landlord = models.ForeignKey(User, on_delete=models.CASCADE)
 
     title = models.CharField(max_length=255)
     descriptions = models.CharField(max_length=255)

@@ -69,7 +69,7 @@ const LoginModal = () => {
           </div>
         )}
 
-        <CustomButton isLoading={loading} label="Login" />
+        <CustomButton isLoading={loading} label="Login" className="w-full" />
         <div
           className="text-xs text-blue-500 cursor-pointer "
           onClick={() => {

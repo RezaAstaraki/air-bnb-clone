@@ -1,6 +1,6 @@
 'use server'
-import { access } from "fs"
-import { cookies } from "next/headers"
+
+import { getAccessCookie, handelCookies } from "./handelJWT"
 
 
 export async function createUser(formData: FormData) {
@@ -91,30 +91,11 @@ export async function serverLogin(formData:FormData) {
     
 }
 
-export async function handelCookies(accessToken: string, refreshToken: string) {
-    cookies().set('session_access_token', accessToken, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 60 * 15 ,
-        path: '/',
-        sameSite:"none",
-    });
-    cookies().set('session_refresh_token', refreshToken, {
-        httpOnly: true,
-        secure: true,
-        maxAge: 60 * 60 * 24 * 7,
-        path: '/',
-        sameSite:"none",
-    });
-    
-}
 
-export async function getAccessCookie() {
-    const access =  cookies().get("session_access_token");
 
-    return access
-    
-}
+
+
+
 
 export async function getCurrentUser() {
     const access = await getAccessCookie()
@@ -124,7 +105,7 @@ export async function getCurrentUser() {
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${access?.value}`,            
+                    'Authorization': `Bearer ${access}`,            
                 },
                 cache:'force-cache'
             }
@@ -138,23 +119,33 @@ export async function getCurrentUser() {
      }
 }
 
-export async function resetCookies() {
-    cookies().delete('session_access_token')
-    cookies().delete('session_refresh_token')
-    
-}
+
+
+
 
 export async function submitPropertyData(formData: FormData) {
-    const access = getAccessCookie()
-    const res = await fetch('http://127.0.0.1:8000/api/properties/create/',
-        {
-            method: 'POST',
-            headers: {
-                'authorization' : `Bearer ${access}`
-            }
-            
-        }
-    )
-    console.log(res)
+    // const accessObject = await getAccessCookie();
+    const access = await getAccessCookie();
     
-} 
+    console.log('Authorization Header:', `Bearer ${access}`);
+    
+    const res = await fetch(`http://127.0.0.1:8000/api/properties/create/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${access}`,
+            // 'Content-Type': 'application/json', // Not needed when using FormData
+        },
+        body: formData
+    });
+    
+    console.log(res);
+    
+    // Check the response status
+    if (res.ok) {
+        const data = await res.json();
+        console.log('Success:', data);
+    } else {
+        const errorData = await res.json();
+        console.error('Error:', errorData);
+    }
+}

@@ -1,5 +1,7 @@
 "use client";
-import { getAccessCookie, getCurrentUser } from "@/app/libs/actions/actions";
+
+import { getCurrentUser } from "@/app/libs/actions/actions";
+import { getAccessCookie } from "@/app/libs/actions/handelJWT";
 import { logout, setAuth } from "@/redux/features/auth/authSlice";
 import { open } from "@/redux/features/modal/loginSlice";
 import { useEffect, useState } from "react";
@@ -12,15 +14,15 @@ const CurrentUser = () => {
     const a = async () => {
       const b = await getAccessCookie();
       if (!b) {
-        // console.log("!b", !b);
+        console.log("!b", !b);
         dispatch(logout());
-        // console.log("not token");
+        console.log("not token");
         dispatch(open());
       } else {
-        // console.log("!b", !b);
+        console.log("!b", !b);
         const user = await getCurrentUser();
-        // console.log(b);
-        setUserName(user?.name);
+        console.log(b);
+        setUserName(user?.id);
         dispatch(setAuth());
       }
     };

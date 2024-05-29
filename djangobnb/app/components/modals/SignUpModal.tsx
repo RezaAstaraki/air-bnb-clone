@@ -81,7 +81,7 @@ const SingUpModal = () => {
           </div>
         )}
 
-        <CustomButton isLoading={loading} label="Sign up" />
+        <CustomButton isLoading={loading} label="Sign up" className="w-full" />
 
         <div
           className="text-xs text-blue-500 cursor-pointer "

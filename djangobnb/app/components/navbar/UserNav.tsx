@@ -8,8 +8,8 @@ import { open as openSignUp } from "@/redux/features/modal/signupSlice";
 import { open as openLogin } from "@/redux/features/modal/loginSlice";
 import { RootState } from "@/redux/store";
 import LogoutButton from "./LogoutButton";
-import { resetCookies } from "@/app/libs/actions/actions";
 import { useRouter } from "next/navigation";
+import { resetCookies } from "@/app/libs/actions/handelJWT";
 
 const UserNav = () => {
   const dispatch = useDispatch();
@@ -50,8 +50,6 @@ const UserNav = () => {
             <LogoutButton
               onClick={async () => {
                 setIsOpen(false);
-                resetCookies();
-                router.push("/");
               }}
             />
           </>

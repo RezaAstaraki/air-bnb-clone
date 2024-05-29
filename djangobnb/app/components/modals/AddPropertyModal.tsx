@@ -7,7 +7,7 @@ import { closeAddProperty } from "@/redux/features/modal/addPropertySlice";
 
 import { RootState } from "@/redux/store";
 import CustomButton from "../forms/CustomButton";
-import Categories, { categories } from "../navbar/Categories";
+import { categories } from "../navbar/Categories";
 import Image from "next/image";
 import CategoryIcon from "../addProperties/CategoryIcon";
 import SelectCountry, {
@@ -21,7 +21,7 @@ const AddPropertyModal = () => {
 
   const [current, setCurrent] = useState(1);
   const [category, setCategory] = useState<string | null>();
-  const [title, setTitle] = useState<string>();
+  const [title, setTitle] = useState<string>("");
   const [description, setDescription] = useState<string>();
   const [price, setPrice] = useState(0);
   const [bedrooms, setBedrooms] = useState(0);
@@ -250,7 +250,7 @@ const AddPropertyModal = () => {
                 const formData = new FormData();
                 formData.append("category", category);
                 formData.append("title", title);
-                formData.append("description", description);
+                formData.append("descriptions", description);
                 formData.append("price_per_night", String(price));
                 formData.append("bedrooms", String(bedrooms));
                 formData.append("bathrooms", String(bathrooms));
