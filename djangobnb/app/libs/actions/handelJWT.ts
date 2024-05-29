@@ -21,13 +21,12 @@ export async function handelCookies(accessToken: string, refreshToken: string) {
 
 export async function getRefreshCookie() {
     const refreshObject = cookies().get('session_refresh_token')
-    console.log('refreshObject ----->', refreshObject)
+    // console.log('refreshObject ----->', refreshObject)
     if (refreshObject?.value) {
         
         const refresh = refreshObject?.value
         return refresh
     } else {
-        'NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'
        return 
     }
 }
@@ -35,11 +34,11 @@ export async function getRefreshCookie() {
 export async function getAccessCookie() {
     const accessObject = cookies().get("session_access_token");
     const access = accessObject?.value
-    console.log('--->>>>>>>>>>>>access from getAccessCookie', access,'\n')
+    // console.log('--->>>>>>>>>>>>access from getAccessCookie', access,'\n')
     if (!access) {
-        console.log('inside not access')
+        // console.log('inside not access')
         const refresh = await getRefreshCookie()
-        console.log(' >>>>>>>>>>>>       refresh 000000000',refresh,'\n')
+        // console.log(' >>>>>>>>>>>>       refresh 000000000',refresh,'\n')
         if (refresh) {
             const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/refresh', {
                 method: 'POST',
@@ -54,7 +53,7 @@ export async function getAccessCookie() {
                 const response = await res.json()
                 const newAccess = response?.access
 
-                console.log('new access ------- ', newAccess ,'\n')
+                // console.log('new access ------- ', newAccess ,'\n')
                 cookies().set('session_access_token', newAccess, {
                     httpOnly: true,
                     secure: true,
@@ -64,11 +63,11 @@ export async function getAccessCookie() {
                 });
                 return newAccess
             } else {
-                console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+                // console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
                 return
             }
         } else {
-            console.log('whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+            // console.log('whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
             return
         }
     } return access

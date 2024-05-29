@@ -34,7 +34,7 @@ export async function createUser(formData: FormData) {
 
 
 export async function activateUser(formData: FormData) {
-    console.log(FormData)
+    // console.log(FormData)
     const res = await fetch('http://localhost:8000/api/auth/users/activation/',
         {
             method: 'POST',
@@ -115,7 +115,7 @@ export async function getCurrentUser() {
         return response
         
     } catch (error) { 
-        console.log(error);
+        // console.log(error);
         
      }
 }
@@ -128,7 +128,7 @@ export async function submitPropertyData(formData: FormData) {
     // const accessObject = await getAccessCookie();
     const access = await getAccessCookie();
     
-    console.log('Authorization Header:', `Bearer ${access}`);
+    // console.log('Authorization Header:', `Bearer ${access}`);
     
     const res = await fetch(`http://127.0.0.1:8000/api/properties/create/`, {
         method: 'POST',
@@ -139,7 +139,7 @@ export async function submitPropertyData(formData: FormData) {
         body: formData
     });
     
-    console.log(res);
+    // console.log(res);
     revalidatePath('/')
     
     // Check the response status
