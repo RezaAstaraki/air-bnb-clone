@@ -2,9 +2,11 @@ from rest_framework.decorators import api_view, authentication_classes, permissi
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
+from rest_framework import status
+
 
 from rest_framework.response import Response
-from .serializer import PropertySerializer
+from .serializer import PropertySerializer, PropertyItemSerializer
 from .models import Property
 from .forms import AddPropertyForm
 
@@ -17,14 +19,29 @@ from rest_framework.request import Request
 
 
 @api_view(['GET'])
+def property(request, id):
+    try:
+        # Retrieve the property instance based on the provided UUID
+        property_instance = Property.objects.get(id=id)
+
+        # Serialize the property instance
+        serializer = PropertyItemSerializer(property_instance)
+
+        # Return the serialized data
+        return Response(data=serializer.data)
+    except Property.DoesNotExist:
+        # Return a 404 response if the property is not found
+        return Response({'error': 'Property not found'}, status=status.HTTP_404_NOT_FOUND)
+    except Exception as e:
+        # Log the exception and return a 500 response for any unexpected errors
+        print(f"Exception: {e}")
+        return Response({'error': 'An unexpected error occurred'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+@api_view(['GET'])
 def properties(request):
     all_properties = Property.objects.all()
     p = PropertySerializer(all_properties, many=True)
-
-    # p.is_valid()
-    # print('>>>>>>>>>>>>>>')
-    # print(p)
-    # print('>>>>>>>>>>>>>>')
 
     return Response(data=p.data)
 

@@ -9,3 +9,9 @@ class PropertySerializer(ModelSerializer):
         model = Property
 
         fields = ['id', 'title', 'price_per_night', 'image_url']
+
+
+class PropertyItemSerializer(ModelSerializer):
+    class Meta:
+        model = Property
+        fields = '__all__'
