@@ -1,4 +1,6 @@
+import { link } from "fs";
 import PropertyListItem from "./PropertyListItem";
+import Link from "next/link";
 
 interface ListItem {
   id: string;
@@ -17,13 +19,15 @@ const PropertyList: React.FC<PropertyListProps> = ({
   return (
     <>
       {list.map((item) => (
-        <PropertyListItem
-          id={item.id}
-          image_url={item.image_url}
-          price_per_night={item.price_per_night}
-          title={item.title}
-          key={item.id}
-        />
+        <Link href={`/properties/${item.id}`} about={`${item.title} property`}>
+          <PropertyListItem
+            id={item.id}
+            image_url={item.image_url}
+            price_per_night={item.price_per_night}
+            title={item.title}
+            key={item.id}
+          />
+        </Link>
       ))}
     </>
   );

@@ -1,5 +1,6 @@
 'use server'
 
+import { revalidatePath } from "next/cache"
 import { getAccessCookie, handelCookies } from "./handelJWT"
 
 
@@ -139,6 +140,7 @@ export async function submitPropertyData(formData: FormData) {
     });
     
     console.log(res);
+    revalidatePath('/')
     
     // Check the response status
     if (res.ok) {

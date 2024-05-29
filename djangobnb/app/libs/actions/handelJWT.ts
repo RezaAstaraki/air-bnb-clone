@@ -27,45 +27,51 @@ export async function getRefreshCookie() {
         const refresh = refreshObject?.value
         return refresh
     } else {
-        throw(new Error('no refresh token'))
+        'NOOOOOOOOOOOOOOOOOOOOOOOOOOOOO'
+       return 
     }
 }
  
 export async function getAccessCookie() {
     const accessObject = cookies().get("session_access_token");
     const access = accessObject?.value
-    console.log('access from getAccessCookie', access)
+    console.log('--->>>>>>>>>>>>access from getAccessCookie', access,'\n')
     if (!access) {
+        console.log('inside not access')
         const refresh = await getRefreshCookie()
-        // console.log('refresh 000000000',refresh)
-        const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/refresh', {
-            method: 'POST',
-            headers:{
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                "refresh": refresh
+        console.log(' >>>>>>>>>>>>       refresh 000000000',refresh,'\n')
+        if (refresh) {
+            const res = await fetch('http://127.0.0.1:8000/api/auth/jwt/refresh', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    "refresh": refresh
+                })
             })
-        })
-        // console.log('****************************')
-        // console.log(res)
-        // console.log('****************************')
-        if (res.ok) {
-            const response = await res.json()
-            const newAccess = response?.access
+            if (res.ok) {
+                const response = await res.json()
+                const newAccess = response?.access
 
-            console.log('new access ------- ' ,newAccess)
-            cookies().set('session_access_token', newAccess, {
-                httpOnly: true,
-                secure: true,
-                maxAge: (60 * 5)-10 ,
-                path: '/',
-                sameSite:"none",
-            });
-            return newAccess
+                console.log('new access ------- ', newAccess ,'\n')
+                cookies().set('session_access_token', newAccess, {
+                    httpOnly: true,
+                    secure: true,
+                    maxAge: (60 * 5) - 10,
+                    path: '/',
+                    sameSite: "none",
+                });
+                return newAccess
+            } else {
+                console.log('OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO')
+                return
+            }
+        } else {
+            console.log('whyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyyy')
+            return
         }
-    }
-    return access 
+    } return access
 }
 
 export async function resetCookies() {

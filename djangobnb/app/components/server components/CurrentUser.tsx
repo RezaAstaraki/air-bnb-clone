@@ -12,16 +12,17 @@ const CurrentUser = () => {
   const [userName, setUserName] = useState();
   useEffect(() => {
     const a = async () => {
-      const b = await getAccessCookie();
-      if (!b) {
-        console.log("!b", !b);
+      const access = await getAccessCookie();
+      console.log("access =  ", access);
+      if (!access) {
+        console.log("!access", !access);
         dispatch(logout());
         console.log("not token");
-        dispatch(open());
+        // dispatch(open());
       } else {
-        console.log("!b", !b);
+        console.log("!access", !access);
         const user = await getCurrentUser();
-        console.log(b);
+        console.log("access ", access);
         setUserName(user?.id);
         dispatch(setAuth());
       }
@@ -29,7 +30,7 @@ const CurrentUser = () => {
     a();
   });
 
-  return <div className="text-5xl">{userName}</div>;
+  return <div className="text-sm">{userName}</div>;
 };
 
 export default CurrentUser;
