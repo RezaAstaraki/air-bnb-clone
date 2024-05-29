@@ -1,7 +1,8 @@
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar";
 import Image from "next/image";
 
-const PropertyDetailPagePage = ({ params }: { params: string }) => {
+// const PropertyDetailPagePage:React.FC<Params> = ({ params }:Params) => {
+const PropertyDetailPagePage = ({ params }: { params: { id: string } }) => {
   console.log("params = ", params);
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
