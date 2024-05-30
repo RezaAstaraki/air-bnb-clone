@@ -13,16 +13,16 @@ const CurrentUser = () => {
   useEffect(() => {
     const a = async () => {
       const access = await getAccessCookie();
-      console.log("access =  ", access);
+      // console.log("access =  ", access);
       if (!access) {
         console.log("!access", !access);
         dispatch(logout());
-        console.log("not token");
+        // console.log("not token");
         // dispatch(open());
       } else {
-        console.log("!access", !access);
+        // console.log("!access", !access);
         const user = await getCurrentUser();
-        console.log("access ", access);
+        // console.log("access ", access);
         setUserName(user?.id);
         dispatch(setAuth());
       }
@@ -30,7 +30,7 @@ const CurrentUser = () => {
     a();
   });
 
-  return <div className="text-sm">{userName}</div>;
+  return <div className="text-sm">{/* {userName} */}</div>;
 };
 
 export default CurrentUser;

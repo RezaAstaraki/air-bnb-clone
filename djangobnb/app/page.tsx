@@ -6,6 +6,7 @@ export default async function Home() {
     cache: "no-store",
   });
   const data = await res.json();
+  // console.log(data);
   return (
     <main className="max-w-[1500px] mx-auto px-6">
       <Categories />

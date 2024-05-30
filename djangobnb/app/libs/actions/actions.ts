@@ -92,12 +92,6 @@ export async function serverLogin(formData:FormData) {
     
 }
 
-
-
-
-
-
-
 export async function getCurrentUser() {
     const access = await getAccessCookie()
     try {
@@ -116,6 +110,53 @@ export async function getCurrentUser() {
         
     } catch (error) { 
         // console.log(error);
+        
+     }
+}
+
+
+export interface Landlord {
+    id: string;
+    name: string;
+    avatar: string;
+}
+
+export interface PropertyDetail {
+    id: string;
+    landlord: any;
+    title: string;
+    descriptions: string;
+    price_per_night: number;
+    bedrooms: number;
+    bathrooms: number;
+    guests: number;
+    country: string;
+    country_code: string;
+    category: string;
+    image: string;
+}
+
+export async function getPropertyDetail(propertyId:string){
+
+    try {
+
+        const res = await fetch(`http://127.0.0.1:8000/api/properties/${propertyId}/`,
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': `application/json`,            
+                },
+                cache:"no-cache"
+            }
+        )
+        // console.log(res)
+        const response = await res.json()
+        // console.log(response)
+        return response
+        
+    } catch (error) { 
+        // console.log(error);
+        throw error
         
      }
 }
@@ -140,7 +181,7 @@ export async function submitPropertyData(formData: FormData) {
     });
     
     // console.log(res);
-    revalidatePath('/')
+    
     
     // Check the response status
     if (res.ok) {

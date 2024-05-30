@@ -1,46 +1,56 @@
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar";
+import { getPropertyDetail } from "@/app/libs/actions/actions";
 import Image from "next/image";
 
-// const PropertyDetailPagePage:React.FC<Params> = ({ params }:Params) => {
-const PropertyDetailPagePage = ({ params }: { params: { id: string } }) => {
-  console.log("params = ", params);
+const PropertyDetailPagePage = async ({
+  params,
+}: {
+  params: { id: string };
+}) => {
+  const data = await getPropertyDetail(params.id);
+  // console.log("ata = ", data);
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
       <div className="mb-4 w-full h-[64vh] overflow-hidden rounded-xl relative">
         <Image
           className="object-cover w-full h-full"
           fill
-          src="/beach_1.jpg"
+          src={`http://127.0.0.1:8000${data.image}`}
+          // http://127.0.0.1:8000/media/property/Machu-Picchu_6GGZjoW.webp
+
           alt="Beach house"
         />
       </div>
       <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
         <div className="py-6 pr-6 col-span-3">
-          <h1 className="mb-4 text-4xl">Property name</h1>
+          <h1 className="mb-4 text-4xl">{data.title}</h1>
           <span className="mb-6 block text-xl text-gray-600">
-            4 guests - 2 bedrooms 1 bathroom
+            {data.guests} guests - {data.bedrooms} bedrooms {data.bathrooms}{" "}
+            bathroom
           </span>
           <hr />
           <div className="py-6 flex items-center space-x-4">
-            <Image
-              className="rounded-full"
-              src="/profile_pic_1.jpg"
-              width={50}
-              height={50}
-              alt="landlord pic"
-            />
+            {data.landlord.avatar && (
+              <Image
+                className="rounded-full"
+                src={`http://127.0.0.1:8000${data.landlord.avatar}`}
+                width={50}
+                height={50}
+                alt="landlord pic"
+              />
+            )}
+
             <p>
-              <strong>John Doe</strong> is your host
+              <strong>{data.landlord.name}</strong> is your host
             </p>
           </div>
           <hr />
-          <p className="mt-6 text-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam
-            nemo quasi cupiditate illum sapiente quam debitis molestias tempore
-            nostrum odit.
-          </p>
+          <p className="mt-6 text-lg">{data.descriptions}</p>
         </div>
-        <ReservationSidebar />
+        <ReservationSidebar
+          max_guests={data.guests}
+          price_per_night={data.price_per_night}
+        />
       </div>
     </main>
   );
