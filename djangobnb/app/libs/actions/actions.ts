@@ -4,6 +4,7 @@ import { revalidatePath } from "next/cache"
 import { getAccessCookie, handelCookies } from "./handelJWT"
 
 
+
 export async function createUser(formData: FormData) {
     const res = await fetch('http://127.0.0.1:8000/api/auth/users/',
         {
@@ -149,10 +150,12 @@ export async function getPropertyDetail(propertyId:string){
                 cache:"no-cache"
             }
         )
+       
         // console.log(res)
-        const response = await res.json()
-        // console.log(response)
-        return response
+        if (res.ok) {
+            const response = await res.json()
+            return response
+        }
         
     } catch (error) { 
         // console.log(error);
@@ -191,4 +194,37 @@ export async function submitPropertyData(formData: FormData) {
         const errorData = await res.json();
         console.error('Error:', errorData);
     }
+}
+
+export async function postBooking(formData:FormData,propertyId:string) {
+    const access = await getAccessCookie()
+    const res = await fetch(`http://127.0.0.1:8000/api/properties/${propertyId}/book/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${access}`,
+        },
+        body:formData
+    })
+    revalidatePath(`/properties/${propertyId}/`) 
+
+}
+
+export async function getPropertyReservationList(propertyId: string) {
+    
+    const res = await fetch(`http://127.0.0.1:8000/api/properties/${propertyId}/reservations/`,
+        
+            {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'         
+                },
+                cache:'no-cache'
+            }
+        
+    )
+    if (res.ok) {
+        const response = await res.json()
+        return response
+    }
+    
 }

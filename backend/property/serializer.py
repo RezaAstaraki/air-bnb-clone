@@ -26,7 +26,9 @@ class PropertyItemSerializer(ModelSerializer):
 
 
 class ReservationSerializer(ModelSerializer):
+    property = PropertySerializer(read_only=True, many=False)
 
     class Meta:
         model = Reservation
-        fields = '__all__'
+        fields = ['property', 'start_date', 'end_date',
+                  'number_of_guests', 'number_of_nights', 'total_price']

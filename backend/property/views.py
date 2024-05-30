@@ -6,7 +6,7 @@ from rest_framework import status
 
 
 from rest_framework.response import Response
-from .serializer import PropertySerializer, PropertyItemSerializer
+from .serializer import PropertySerializer, PropertyItemSerializer, ReservationSerializer
 from .models import Property, Reservation
 from .forms import AddPropertyForm
 
@@ -68,9 +68,10 @@ def add_property(request: Request):
 @api_view(['POST'])
 @authentication_classes([JWTAuthentication])
 @permission_classes([IsAuthenticated])
-def book_property(request: Request, pk):
+def book_property(request: Request, id):
 
     # request.POST.
+    # print(request.POST)
 
     try:
         start_date = request.POST.get('start_date', '')
@@ -79,7 +80,7 @@ def book_property(request: Request, pk):
         number_of_guests = request.POST.get('number_of_guests', '')
         total_price = request.POST.get('total_price', '')
         reserver = request.user
-        property = Property.objects.get(pk=pk)
+        property = Property.objects.get(pk=id)
         Reservation.objects.create(
             property=property,
             reserver=reserver,
@@ -90,6 +91,17 @@ def book_property(request: Request, pk):
             total_price=total_price
         )
 
+        return JsonResponse({'success': True})
+
     except Exception as e:
         print('Error', e)
         return JsonResponse({'success': False})
+
+
+@api_view(['GET'])
+def reservations_list(request, id):
+    property = Property.objects.get(pk=id)
+    all_reservations = property.reservations.all()
+    serializer = ReservationSerializer(all_reservations, many=True)
+
+    return JsonResponse(data=serializer.data, safe=False)

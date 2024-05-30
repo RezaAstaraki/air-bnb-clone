@@ -1,3 +1,4 @@
+import DatePicker from "@/app/components/forms/Calender";
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar";
 import { getPropertyDetail } from "@/app/libs/actions/actions";
 import Image from "next/image";
@@ -8,7 +9,9 @@ const PropertyDetailPagePage = async ({
   params: { id: string };
 }) => {
   const data = await getPropertyDetail(params.id);
-  // console.log("ata = ", data);
+
+  console.log(data);
+
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
       <div className="mb-4 w-full h-[64vh] overflow-hidden rounded-xl relative">
@@ -50,6 +53,7 @@ const PropertyDetailPagePage = async ({
         <ReservationSidebar
           max_guests={data.guests}
           price_per_night={data.price_per_night}
+          propertyId={params.id}
         />
       </div>
     </main>
