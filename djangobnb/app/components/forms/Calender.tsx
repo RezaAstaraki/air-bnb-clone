@@ -17,9 +17,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
   value,
   bookedDates,
 }: DatePickerProps) => {
-  useEffect(() => {
-    console.log("from calendr", bookedDates);
-  });
   return (
     <DateRange
       className="w-full border border-gray-400 rounded-xl mb-4"
@@ -31,7 +28,6 @@ const DatePicker: React.FC<DatePickerProps> = ({
       showDateDisplay={false}
       minDate={new Date()}
       disabledDates={bookedDates}
-      // disabledDates={[new Date("2024-06-6"), new Date("2024-06-4")]}
     />
   );
 };

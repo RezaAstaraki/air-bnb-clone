@@ -2,6 +2,7 @@ import DatePicker from "@/app/components/forms/Calender";
 import ReservationSidebar from "@/app/components/properties/ReservationSidebar";
 import { getPropertyDetail } from "@/app/libs/actions/actions";
 import Image from "next/image";
+import Link from "next/link";
 
 const PropertyDetailPagePage = async ({
   params,
@@ -32,7 +33,10 @@ const PropertyDetailPagePage = async ({
             bathroom
           </span>
           <hr />
-          <div className="py-6 flex items-center space-x-4">
+          <Link
+            href={`/landlords/${data.landlord.id}`}
+            className="py-6 flex items-center space-x-4"
+          >
             {data.landlord.avatar && (
               <Image
                 className="rounded-full"
@@ -46,7 +50,7 @@ const PropertyDetailPagePage = async ({
             <p>
               <strong>{data.landlord.name}</strong> is your host
             </p>
-          </div>
+          </Link>
           <hr />
           <p className="mt-6 text-lg">{data.descriptions}</p>
         </div>
