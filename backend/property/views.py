@@ -7,7 +7,7 @@ from rest_framework import status
 
 from rest_framework.response import Response
 from .serializer import PropertySerializer, PropertyItemSerializer
-from .models import Property
+from .models import Property, Reservation
 from .forms import AddPropertyForm
 
 from django.http import JsonResponse
@@ -51,12 +51,6 @@ def properties(request):
 @permission_classes([IsAuthenticated])
 def add_property(request: Request):
 
-    print('///////////////////')
-    # print('request headers', request.META.get('HTTP_AUTHORIZATION'))
-    print('user', request.user)
-    print('type of user', type(request.user))
-    print('>>>>>>>>>>>>>>>>>>>')
-
     form = AddPropertyForm(request.POST, request.FILES)
     if form.is_valid():
         property = form.save(commit=False)
@@ -69,3 +63,33 @@ def add_property(request: Request):
         print('errors', form.errors, form.non_field_errors)
 
         return JsonResponse({'errors': form.errors.as_json()})
+
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def book_property(request: Request, pk):
+
+    # request.POST.
+
+    try:
+        start_date = request.POST.get('start_date', '')
+        end_date = request.POST.get('end_date', '')
+        number_of_nights = request.POST.get('number_of_nights', '')
+        number_of_guests = request.POST.get('number_of_guests', '')
+        total_price = request.POST.get('total_price', '')
+        reserver = request.user
+        property = Property.objects.get(pk=pk)
+        Reservation.objects.create(
+            property=property,
+            reserver=reserver,
+            start_date=start_date,
+            end_date=end_date,
+            number_of_guests=number_of_guests,
+            number_of_nights=number_of_nights,
+            total_price=total_price
+        )
+
+    except Exception as e:
+        print('Error', e)
+        return JsonResponse({'success': False})

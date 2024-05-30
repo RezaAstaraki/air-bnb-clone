@@ -1,10 +1,9 @@
 from rest_framework.serializers import Serializer, ModelSerializer
-from .models import Property
+from .models import Property, Reservation
 from userAccount.models import User
 
 
 class PropertySerializer(ModelSerializer):
-
     class Meta:
         model = Property
 
@@ -24,3 +23,10 @@ class PropertyItemSerializer(ModelSerializer):
     class Meta:
         model = Property
         exclude = ['created_at']
+
+
+class ReservationSerializer(ModelSerializer):
+
+    class Meta:
+        model = Reservation
+        fields = '__all__'

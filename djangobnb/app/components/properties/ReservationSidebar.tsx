@@ -1,4 +1,12 @@
-import React from "react";
+"use client";
+
+import { DateRange } from "react-date-range";
+
+const initialDateRange = {
+  start_Date: new Date(),
+  end_date: new Date(),
+  key: "selection",
+};
 
 const ReservationSidebar = ({
   price_per_night,
