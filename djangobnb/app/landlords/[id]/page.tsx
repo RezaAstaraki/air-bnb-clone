@@ -10,7 +10,6 @@ export default async function LandlordDetailPage({
 }) {
   const data = await getLandlordDetails(params.id);
   const current_user = await getCurrentUser();
-  console.log(data);
 
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">

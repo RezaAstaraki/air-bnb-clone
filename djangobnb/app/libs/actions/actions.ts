@@ -252,3 +252,26 @@ export async function getPropertyReservationList(propertyId: string) {
     }
     
 }
+
+export async function getMyReservations() {
+    const access = await getAccessCookie();
+    const res = await fetch(`http://127.0.0.1:8000/api/myreservations/`,
+        
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${access}`,
+            },
+            cache: 'no-cache'
+        }
+        
+    );
+    if (res.ok) {
+        const response = await res.json()
+        return response
+    } else {
+        throw new Error('can not get reservations')
+    }
+    
+}
