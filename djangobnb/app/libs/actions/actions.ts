@@ -116,16 +116,17 @@ export async function getCurrentUser() {
 }
 
 export async function getLandlordDetails(landlordID:string) {
-    const access = await getAccessCookie()
+    // const access = await getAccessCookie()
     try {
 
         const res = await fetch(`http://127.0.0.1:8000/api/landlords/${landlordID}`,
             {
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${access}`,            
+                    'Content-Type':'application/json'
+                    // 'Authorization': `Bearer ${access}`,            
                 },
-                cache:'force-cache'
+                cache:'no-cache'
             }
         )
         const response = await res.json()

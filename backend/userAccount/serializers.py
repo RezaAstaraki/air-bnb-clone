@@ -17,7 +17,6 @@ class CustomUserSerializer(DjoserUserSerializer):
         return data
 
 
-# from property.serializer import LandlordSerializer
 class LandLordDetailSerializer(serializers.ModelSerializer):
 
     properties = PropertySerializer(many=True, read_only=True)
