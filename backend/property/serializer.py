@@ -37,6 +37,8 @@ class ReservationSerializer(ModelSerializer):
 
 
 class ReservationSerializer_(ModelSerializer):
+    property = PropertyItemSerializer(many=False)
+
     class Meta:
         model = Reservation
         fields = '__all__'

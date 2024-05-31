@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { getMyReservations } from "../libs/actions/actions";
+import Link from "next/link";
 
 const MyReservationsPage = async () => {
   const data = await getMyReservations();
@@ -17,31 +18,37 @@ const MyReservationsPage = async () => {
                 <div className="overflow-hidden relative aspect-square rounded-xl">
                   <Image
                     fill
-                    alt="beach house"
+                    alt={item.property.title}
                     className="hover:scale-110 object-cover transition h-full w-full"
-                    src="/beach_1.jpg"
+                    src={`http://127.0.0.1:8000${item.property.image}`}
                   />
                 </div>
               </div>
 
               <div className="col-span-1 md:col-span-3">
-                <h2 className="mb-4 text-xl">Property Name</h2>
+                <h2 className="mb-4 text-xl">{item.property.title}</h2>
                 <p className="mb-2">
-                  <strong>Check in date:</strong> 14/2/2024
+                  <strong>Check in date:</strong> {item.start_date}
                 </p>
                 <p className="mb-2">
-                  <strong>Check out date:</strong> 16/2/2024
+                  <strong>Check out date:</strong> {item.end_date}
                 </p>
                 <p className="mb-2">
-                  <strong>Number of nights:</strong> 2
+                  <strong>Number of guests:</strong> {item.number_of_guests}
+                </p>
+                <p className="mb-2">
+                  <strong>Number of nights:</strong> {item.number_of_nights}
                 </p>
                 <p className="mb-6">
                   <strong>Total price:</strong> ${item.total_price}
                 </p>
 
-                <div className="inline-block cursor-pointer py-4 px-6 bg-airbnb hover:bg-airbnb-dark text-white rounded-xl">
+                <Link
+                  href={`/properties/${item.property.id}`}
+                  className="inline-block cursor-pointer py-4 px-6 bg-airbnb hover:bg-airbnb-dark text-white rounded-xl"
+                >
                   Go to property
-                </div>
+                </Link>
               </div>
             </div>
           </div>
