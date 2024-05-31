@@ -34,3 +34,17 @@ class ReservationSerializer(ModelSerializer):
         model = Reservation
         fields = ['property', 'start_date', 'end_date',
                   'number_of_guests', 'number_of_nights', 'total_price']
+
+
+class ReservationSerializer_(ModelSerializer):
+    class Meta:
+        model = Reservation
+        fields = '__all__'
+
+
+class UserReservationSerializer(ModelSerializer):
+    reservations = ReservationSerializer_(many=True)
+
+    class Meta:
+        model = User
+        fields = ['id', 'reservations']

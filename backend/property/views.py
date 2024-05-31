@@ -1,12 +1,15 @@
+from rest_framework.serializers import Serializer
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
 
 from rest_framework import status
 
+from userAccount.models import User
+
 
 from rest_framework.response import Response
-from .serializer import PropertySerializer, PropertyItemSerializer, ReservationSerializer
+from .serializer import PropertySerializer, PropertyItemSerializer, ReservationSerializer, ReservationSerializer_, UserReservationSerializer
 from .models import Property, Reservation
 from .forms import AddPropertyForm
 
@@ -105,3 +108,31 @@ def reservations_list(request, id):
     serializer = ReservationSerializer(all_reservations, many=True)
 
     return JsonResponse(data=serializer.data, safe=False)
+
+
+# @api_view(['GET'])
+# @authentication_classes([JWTAuthentication])
+# @permission_classes([IsAuthenticated])
+# def user_reservations_list(request):
+#     user: User = request.user
+#     res = user.reservations.all()
+#     print(res)
+#     serializer = Serializer(instance=res, many=True)
+#     # user_reservations = user.reservations.all()
+#     # serializer = UserReservationSerializer(user, many=False)
+
+#     return JsonResponse(serializer.data, safe=False)
+#     # return JsonResponse(data=serializer.data, safe=False)
+
+
+@api_view(['GET'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def user_reservations_list(request):
+    user: User = request.user
+    # serializer = Serializer(instance=res, many=True)
+    # user_reservations = user.reservations.all()
+    serializer = UserReservationSerializer(user, many=False)
+
+    return JsonResponse(serializer.data, safe=False)
+    # return JsonResponse(data=serializer.data, safe=False)

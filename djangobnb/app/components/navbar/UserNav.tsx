@@ -10,6 +10,8 @@ import { RootState } from "@/redux/store";
 import LogoutButton from "./LogoutButton";
 import { useRouter } from "next/navigation";
 import { resetCookies } from "@/app/libs/actions/handelJWT";
+import { getCurrentUser } from "@/app/libs/actions/actions";
+import { current } from "@reduxjs/toolkit";
 
 const UserNav = () => {
   const dispatch = useDispatch();
@@ -49,6 +51,21 @@ const UserNav = () => {
           <>
             <LogoutButton
               onClick={async () => {
+                setIsOpen(false);
+              }}
+            />
+            <MenuLink
+              label="My Properties"
+              onClick={async () => {
+                const currentUser = await getCurrentUser();
+                router.push(`/landlords/${currentUser.id}`);
+                setIsOpen(false);
+              }}
+            />
+            <MenuLink
+              label="My Reservations"
+              onClick={async () => {
+                router.push(`/myreservations`);
                 setIsOpen(false);
               }}
             />

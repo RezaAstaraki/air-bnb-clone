@@ -11,8 +11,6 @@ const PropertyDetailPagePage = async ({
 }) => {
   const data = await getPropertyDetail(params.id);
 
-  console.log(data);
-
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">
       <div className="mb-4 w-full h-[64vh] overflow-hidden rounded-xl relative">
