@@ -1,4 +1,4 @@
-from rest_framework.serializers import Serializer, ModelSerializer
+from rest_framework.serializers import ModelSerializer
 from .models import Property, Reservation
 from userAccount.models import User
 
@@ -6,8 +6,10 @@ from userAccount.models import User
 class PropertySerializer(ModelSerializer):
     class Meta:
         model = Property
-
         fields = ['id', 'title', 'price_per_night', 'image_url']
+
+    def get_image_url(self, obj):
+        return obj.image_url() if obj.image else None
 
 
 class LandlordSerializer(ModelSerializer):

@@ -115,6 +115,29 @@ export async function getCurrentUser() {
      }
 }
 
+export async function getLandlordDetails(landlordID:string) {
+    const access = await getAccessCookie()
+    try {
+
+        const res = await fetch(`http://127.0.0.1:8000/api/landlords/${landlordID}`,
+            {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${access}`,            
+                },
+                cache:'force-cache'
+            }
+        )
+        const response = await res.json()
+        return response
+        
+    } catch (error) { 
+        // console.log(error);
+        
+     }
+}
+
+
 
 export interface Landlord {
     id: string;
