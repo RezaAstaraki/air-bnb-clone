@@ -13,7 +13,7 @@ const MyReservationsPage = async () => {
       {reservations.map((item: any) => {
         return (
           <div key={item.id} className="space-y-4">
-            <div className="p-5 grid grid-cols-1 md:grid-cols-4  gap-4 shadow-md border border-gray-300 rounded-xl">
+            <div className="p-5 grid grid-cols-1 md:grid-cols-4  hover:bg-gray-50  gap-4 shadow-md hover:shadow-lg border border-gray-300 rounded-xl mt-4">
               <div className="col-span-1">
                 <div className="overflow-hidden relative aspect-square rounded-xl">
                   <Image
@@ -26,7 +26,9 @@ const MyReservationsPage = async () => {
               </div>
 
               <div className="col-span-1 md:col-span-3">
-                <h2 className="mb-4 text-xl">{item.property.title}</h2>
+                <h2 className="mb-4 text-xl">
+                  <strong>{item.property.title}</strong>
+                </h2>
                 <p className="mb-2">
                   <strong>Check in date:</strong> {item.start_date}
                 </p>
