@@ -1,5 +1,6 @@
 import Image from "next/image";
 import React from "react";
+import FavoriteButton from "../FavoriteButton";
 
 interface PropertyListItemProps {
   id: string;
@@ -24,6 +25,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
           className="hover:scale-110 object-cover  transition-transform duration-300 h-full w-full"
           sizes="(max-width: 768px) 768px,(max-width: 1200px) 768px,768px,"
         />
+        <FavoriteButton />
       </div>
       <div className="mt-2">
         <p className="text-lg font-bold">{title}</p>

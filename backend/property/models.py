@@ -21,7 +21,7 @@ class Property(models.Model):
     country = models.CharField(max_length=255)
     country_code = models.CharField(max_length=255)
     category = models.CharField(max_length=255)
-    # favorited
+    favorite = models.ManyToManyField(User, related_name='favorites')
 
     image = models.ImageField(null=True,
                               upload_to='property',
@@ -33,6 +33,9 @@ class Property(models.Model):
     def image_url(self):
         url = f'{settings.WEBSITE_URL}{self.image.url}'
         return url
+
+    def like_num(self):
+        return self.favorite.count()
 
 
 class Reservation(models.Model):
