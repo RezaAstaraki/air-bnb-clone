@@ -5,6 +5,7 @@ import { HeartIcon as Outlined } from "@heroicons/react/24/outline";
 import { toggleFavorite } from "../libs/actions/actions";
 import { open } from "@/redux/features/modal/loginSlice";
 import { useDispatch } from "react-redux";
+import { revalidatePath } from "next/cache";
 
 const FavoriteButton = ({
   isFavored = false,

@@ -289,6 +289,7 @@ export async function toggleFavorite(propertyId: string) {
         },
     });
     if (res.ok) {
+        revalidatePath("/");
         return await res.json()
     } else {
         const response = await res.json()

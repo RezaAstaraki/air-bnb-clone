@@ -9,9 +9,8 @@ import { open as openLogin } from "@/redux/features/modal/loginSlice";
 import { RootState } from "@/redux/store";
 import LogoutButton from "./LogoutButton";
 import { useRouter } from "next/navigation";
-import { resetCookies } from "@/app/libs/actions/handelJWT";
 import { getCurrentUser } from "@/app/libs/actions/actions";
-import { current } from "@reduxjs/toolkit";
+import { revalidatePath } from "next/cache";
 
 const UserNav = () => {
   const dispatch = useDispatch();
@@ -59,6 +58,13 @@ const UserNav = () => {
               onClick={async () => {
                 const currentUser = await getCurrentUser();
                 router.push(`/landlords/${currentUser.id}`);
+                setIsOpen(false);
+              }}
+            />
+            <MenuLink
+              label="My favorites"
+              onClick={async () => {
+                router.push(`/?myfavorites=true`);
                 setIsOpen(false);
               }}
             />

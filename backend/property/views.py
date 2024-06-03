@@ -45,16 +45,25 @@ def property(request, id):
 
 
 @api_view(['GET'])
-def properties(request):
+def properties(request: Request):
+    myfavorites = request.GET.get('myfavorites')
+    print(myfavorites)
     access = request.COOKIES.get('session_access_token')
     all_properties = Property.objects.all()
+
     if access:
         acc = tokens.AccessToken(access)
         user = User.objects.get(pk=acc.payload.get('user_id'))
+
+        if myfavorites:
+            all_properties = all_properties.filter(favorite=user)
+
         p = PropertySerializer(all_properties, many=True,
                                context={'user': user})
     else:
         p = PropertySerializer(all_properties, many=True,)
+
+    print(p)
 
     return Response(data=p.data)
 
@@ -118,21 +127,6 @@ def reservations_list(request, id):
     serializer = ReservationSerializer(all_reservations, many=True)
 
     return JsonResponse(data=serializer.data, safe=False)
-
-
-# @api_view(['GET'])
-# @authentication_classes([JWTAuthentication])
-# @permission_classes([IsAuthenticated])
-# def user_reservations_list(request):
-#     user: User = request.user
-#     res = user.reservations.all()
-#     print(res)
-#     serializer = Serializer(instance=res, many=True)
-#     # user_reservations = user.reservations.all()
-#     # serializer = UserReservationSerializer(user, many=False)
-
-#     return JsonResponse(serializer.data, safe=False)
-#     # return JsonResponse(data=serializer.data, safe=False)
 
 
 @api_view(['GET'])
