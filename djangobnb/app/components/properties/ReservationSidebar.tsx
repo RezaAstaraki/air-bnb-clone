@@ -99,7 +99,7 @@ const ReservationSidebar = ({
   }, [dateRange]);
 
   return (
-    <aside className="mt-6 p-6 col-span-2 rounded-xl border border-gray-300 shadow-lg">
+    <aside className="mt-6 p-6 col-span-2 rounded-xl border border-gray-300 shadow-lg min-w-[380px]">
       <h2 className="mb-5 text-2xl ">${price_per_night} per night</h2>
       <DatePicker
         value={dateRange}
@@ -123,7 +123,7 @@ const ReservationSidebar = ({
         onClick={async () => {
           await performBooking(propertyId);
         }}
-        className="cursor-pointer w-full mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnb-dark rounded-xl"
+        className="cursor-pointer  mb-6 py-6 text-center text-white bg-airbnb hover:bg-airbnb-dark rounded-xl justify-center"
       >
         Book
       </div>

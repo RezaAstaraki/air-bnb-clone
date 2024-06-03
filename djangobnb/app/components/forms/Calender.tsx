@@ -19,7 +19,7 @@ const DatePicker: React.FC<DatePickerProps> = ({
 }: DatePickerProps) => {
   return (
     <DateRange
-      className="w-full border border-gray-400 rounded-xl mb-4"
+      className=" border border-gray-400 rounded-xl mb-4"
       rangeColors={["#262626"]}
       ranges={[value]}
       date={new Date()}
