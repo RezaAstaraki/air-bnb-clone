@@ -6,7 +6,7 @@ export async function handelCookies(accessToken: string, refreshToken: string) {
     cookies().set('session_access_token', accessToken, {
         httpOnly: true,
         secure: true,
-        maxAge: (60 * 5)-10 ,
+        maxAge: (60 * 50)-10 ,
         path: '/',
         sameSite:"none",
     });
@@ -57,7 +57,7 @@ export async function getAccessCookie() {
                 cookies().set('session_access_token', newAccess, {
                     httpOnly: true,
                     secure: true,
-                    maxAge: (60 * 5) - 10,
+                    maxAge: (60 * 50) - 10,
                     path: '/',
                     sameSite: "none",
                 });

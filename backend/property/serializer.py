@@ -2,11 +2,23 @@ from rest_framework.serializers import ModelSerializer
 from .models import Property, Reservation
 from userAccount.models import User
 
+from rest_framework import serializers
+
 
 class PropertySerializer(ModelSerializer):
+
+    is_favorite = serializers.SerializerMethodField()
+
+    def get_is_favorite(self, obj):
+        user = self.context.get('user')
+        if user:
+            if user in obj.favorite.all():
+                return True
+        return False
+
     class Meta:
         model = Property
-        fields = ['id', 'title', 'price_per_night', 'image_url']
+        fields = ['id', 'title', 'price_per_night', 'image_url', 'is_favorite']
 
     def get_image_url(self, obj):
         return obj.image_url() if obj.image else None

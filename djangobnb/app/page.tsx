@@ -1,12 +1,19 @@
+import { cookies } from "next/headers";
 import Categories from "./components/navbar/Categories";
 import PropertyList from "./components/properties/PropertyList";
 
 export default async function Home() {
+  const access = cookies().get("session_access_token");
+  const cookie = `${access?.name}=${access?.value}`;
   const res = await fetch("http://127.0.0.1:8000/api/properties/", {
+    credentials: "include",
+    headers: {
+      "Content-Type": "application/json",
+      Cookie: cookie,
+    },
     cache: "no-store",
   });
   const data = await res.json();
-  // console.log(data);
   return (
     <main className="max-w-[1500px] mx-auto px-6">
       <Categories />

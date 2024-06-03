@@ -1,3 +1,4 @@
+from rest_framework_simplejwt import tokens
 from rest_framework.serializers import Serializer
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
@@ -23,12 +24,14 @@ from rest_framework.request import Request
 
 @api_view(['GET'])
 def property(request, id):
+    print(request.COOKIES)
     try:
         # Retrieve the property instance based on the provided UUID
         property_instance = Property.objects.get(id=id)
 
         # Serialize the property instance
-        serializer = PropertyItemSerializer(property_instance)
+        serializer = PropertyItemSerializer(
+            property_instance, context={'request': request})
 
         # Return the serialized data
         return Response(data=serializer.data)
@@ -43,8 +46,15 @@ def property(request, id):
 
 @api_view(['GET'])
 def properties(request):
+    access = request.COOKIES.get('session_access_token')
     all_properties = Property.objects.all()
-    p = PropertySerializer(all_properties, many=True)
+    if access:
+        acc = tokens.AccessToken(access)
+        user = User.objects.get(pk=acc.payload.get('user_id'))
+        p = PropertySerializer(all_properties, many=True,
+                               context={'user': user})
+    else:
+        p = PropertySerializer(all_properties, many=True,)
 
     return Response(data=p.data)
 

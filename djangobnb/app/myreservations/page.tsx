@@ -5,7 +5,6 @@ import Link from "next/link";
 const MyReservationsPage = async () => {
   const data = await getMyReservations();
   const { reservations } = data;
-  console.log(reservations[0]);
 
   return (
     <main className="max-w-[1500px] mx-auto px-6 pb-6">

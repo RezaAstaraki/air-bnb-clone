@@ -213,7 +213,6 @@ export async function submitPropertyData(formData: FormData) {
     // Check the response status
     if (res.ok) {
         const data = await res.json();
-        console.log('Success:', data);
     } else {
         const errorData = await res.json();
         console.error('Error:', errorData);

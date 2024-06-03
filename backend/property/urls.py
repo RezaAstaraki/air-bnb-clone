@@ -11,6 +11,8 @@ urlpatterns = [
          reservations_list, name='api_book_reservations'),
     path('myreservations/',
          user_reservations_list, name='user_reservations'),
+    #     path('properties/<uuid:id>/toggle_favorite/',
+    #          reservations_list, name='api_book_reservations'),
 
 
 ]
