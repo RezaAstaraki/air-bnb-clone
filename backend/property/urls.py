@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import properties, add_property, property, book_property, reservations_list, user_reservations_list
+from .views import properties, add_property, property, book_property, reservations_list, user_reservations_list, toggle_favorite
 
 
 urlpatterns = [
@@ -11,8 +11,8 @@ urlpatterns = [
          reservations_list, name='api_book_reservations'),
     path('myreservations/',
          user_reservations_list, name='user_reservations'),
-    #     path('properties/<uuid:id>/toggle_favorite/',
-    #          reservations_list, name='api_book_reservations'),
+    path('properties/<uuid:id>/toggle_favorite/',
+         toggle_favorite, name='api_toggle_favorite'),
 
 
 ]

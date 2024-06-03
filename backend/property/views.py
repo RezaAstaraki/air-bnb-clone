@@ -146,3 +146,18 @@ def user_reservations_list(request):
 
     return JsonResponse(serializer.data, safe=False)
     # return JsonResponse(data=serializer.data, safe=False)
+
+
+@api_view(['POST'])
+@authentication_classes([JWTAuthentication])
+@permission_classes([IsAuthenticated])
+def toggle_favorite(request: Request, id):
+    user = request.user
+    property = Property.objects.get(pk=id)
+
+    if user in property.favorite.all():
+        property.favorite.remove(user)
+        return JsonResponse({'message': 'removed'})
+    else:
+        property.favorite.add(user)
+        return JsonResponse({'message': 'add'})
