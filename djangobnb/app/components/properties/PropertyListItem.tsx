@@ -7,6 +7,7 @@ interface PropertyListItemProps {
   title: string;
   price_per_night: string;
   image_url: string;
+  is_favorite?: boolean;
 }
 
 const PropertyListItem: React.FC<PropertyListItemProps> = ({
@@ -14,6 +15,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
   title,
   price_per_night,
   image_url,
+  is_favorite,
 }: PropertyListItemProps) => {
   return (
     <div className="cursor-pointer">
@@ -25,7 +27,7 @@ const PropertyListItem: React.FC<PropertyListItemProps> = ({
           className="hover:scale-110 object-cover  transition-transform duration-300 h-full w-full"
           sizes="(max-width: 768px) 768px,(max-width: 1200px) 768px,768px,"
         />
-        <FavoriteButton />
+        <FavoriteButton propertyId={id} isFavored={is_favorite} />
       </div>
       <div className="mt-2">
         <p className="text-lg font-bold">{title}</p>

@@ -157,7 +157,7 @@ def toggle_favorite(request: Request, id):
 
     if user in property.favorite.all():
         property.favorite.remove(user)
-        return JsonResponse({'message': 'removed'})
+        return JsonResponse({'code': 'success', 'message': 'removed'})
     else:
         property.favorite.add(user)
-        return JsonResponse({'message': 'add'})
+        return JsonResponse({'code': 'success', 'message': 'add'})

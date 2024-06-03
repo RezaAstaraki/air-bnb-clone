@@ -2,23 +2,28 @@
 import React, { useState } from "react";
 import { HeartIcon as Solid } from "@heroicons/react/24/solid";
 import { HeartIcon as Outlined } from "@heroicons/react/24/outline";
+import { toggleFavorite } from "../libs/actions/actions";
+import { open } from "@/redux/features/modal/loginSlice";
+import { useDispatch } from "react-redux";
 
 const FavoriteButton = ({
   isFavored = false,
-  onClick,
+  propertyId,
 }: {
   isFavored?: boolean;
-  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  propertyId: string;
 }) => {
+  const dispatch = useDispatch();
   const [_isFavored, setIsFavored] = useState(isFavored);
 
-  const handleClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  const handleClick = async (e: React.MouseEvent<HTMLDivElement>) => {
     e.stopPropagation();
     e.preventDefault();
-    setIsFavored((prev) => !prev);
-    console.log("clicked");
-    if (onClick) {
-      onClick(e);
+    const response = await toggleFavorite(propertyId);
+    if (!response.code) {
+      dispatch(open());
+    } else {
+      setIsFavored((prev) => !prev);
     }
   };
 

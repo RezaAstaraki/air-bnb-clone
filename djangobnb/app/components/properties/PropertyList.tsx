@@ -7,6 +7,7 @@ interface ListItem {
   title: string;
   price_per_night: string;
   image_url: string;
+  is_favorite?: boolean;
 }
 
 interface PropertyListProps {
@@ -29,6 +30,7 @@ const PropertyList: React.FC<PropertyListProps> = ({
             image_url={item.image_url}
             price_per_night={item.price_per_night}
             title={item.title}
+            is_favorite={item.is_favorite}
           />
         </Link>
       ))}

@@ -274,3 +274,24 @@ export async function getMyReservations() {
     }
     
 }
+
+export async function toggleFavorite(propertyId: string) {
+    // const accessObject = await getAccessCookie();
+    const access = await getAccessCookie();
+    
+    // console.log('Authorization Header:', `Bearer ${access}`);
+    
+    const res = await fetch(`http://127.0.0.1:8000/api/properties/${propertyId}/toggle_favorite/`, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${access}`,
+            // 'Content-Type': 'application/json', // Not needed when using FormData
+        },
+    });
+    if (res.ok) {
+        return await res.json()
+    } else {
+        const response = await res.json()
+        return response.code
+    }
+}
