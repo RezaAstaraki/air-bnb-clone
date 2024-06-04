@@ -63,8 +63,6 @@ def properties(request: Request):
     else:
         p = PropertySerializer(all_properties, many=True,)
 
-    print(p)
-
     return Response(data=p.data)
 
 
