@@ -1,7 +1,6 @@
 "use client";
 
 import Image from "next/image";
-import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 
@@ -11,6 +10,7 @@ export const categories = [
   { src: "/cabins.jpg", text: "Cabins" },
   { src: "/tiny-houses.jpg", text: "Tiny Homes" },
 ];
+
 const Categories = () => {
   const path = usePathname();
   const searchParams = useSearchParams();
@@ -21,48 +21,29 @@ const Categories = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // console.log("state = ", categoryState);
+    // Create a new URLSearchParams object from the current search parameters
+    const params = new URLSearchParams(searchParams.toString());
 
-    // console.log("path =", path);
-    // console.log("if =", searchParams.toString() == "");
-    // console.log('searchParams.toString() == ""', searchParams.toString() == "");
+    // Clear all current 'category' parameters
+    params.delete("category");
 
-    // console.log(searchParams.getAll("category"));
-    // console.log("search params", searchParams.get("category"));
-    let query = "";
-    let prevQuery = searchParams.toString();
-    if (prevQuery == "") {
-      const newquery = categoryState.forEach((value) => {
-        query += `category=${value}&`;
-      });
-    } else {
-      categoryState.forEach((value) => {
-        prevQuery = prevQuery.replaceAll(`category=${value}`, "");
+    // Add the categories from the state to the params
+    categoryState.forEach((category) => {
+      params.append("category", category);
+    });
 
-        query += `category=${value}&`;
-      });
-      prevQuery = prevQuery.replaceAll("&&", "&");
-    }
-    query = prevQuery + query;
-    console.log("prevQuery", prevQuery);
-    console.log("Query", query);
+    const queryString = params.toString();
 
-    // console.log(query);
-    // router.push(`/?${query}`);
-
-    // console.log("search", searchParams.toString());
-  }, [categoryState, searchParams]);
+    // Update the router with the new query string
+    router.push(`/?${queryString}`);
+  }, [categoryState]);
 
   const toggleCategories = (category: string) => {
     setCategoryState((prev) => {
       if (!prev.includes(category)) {
-        const newCategory = [...prev, category];
-        return newCategory;
+        return [...prev, category];
       } else {
-        const newCategory = prev.filter((item) => {
-          return item !== category;
-        });
-        return newCategory;
+        return prev.filter((item) => item !== category);
       }
     });
   };
@@ -72,14 +53,12 @@ const Categories = () => {
       {categories.map((item, index) => (
         <div
           key={index}
-          className={` hover:opacity-100 cursor-pointer p-4 border-b-4 border-white hover:border-gray-200 flex flex-col justify-center items-center ${
+          className={`hover:opacity-100 cursor-pointer p-4 border-b-4 border-white hover:border-gray-200 flex flex-col justify-center items-center ${
             categoryState.includes(item.text)
               ? "bg-blue-300 opacity-100 shadow-md border-yellow-300 "
               : "opacity-60"
           }`}
-          onClick={() => {
-            toggleCategories(item.text);
-          }}
+          onClick={() => toggleCategories(item.text)}
         >
           <Image width={30} height={30} alt="" src={item.src} />
           <span className="pt-2">{item.text}</span>
