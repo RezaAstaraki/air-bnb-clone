@@ -7,6 +7,7 @@ import NextProvider from "@/redux/NextProvider";
 import LoginModal from "./components/modals/LoginModal";
 import SingUpModal from "./components/modals/SignUpModal";
 import AddPropertyModal from "./components/modals/AddPropertyModal";
+import AdvanceSearch from "./components/modals/AdvanceSearch";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -29,6 +30,7 @@ export default function RootLayout({
           <SingUpModal />
           <AddPropertyModal />
           <LoginModal />
+          <AdvanceSearch />
         </body>
       </html>
     </NextProvider>

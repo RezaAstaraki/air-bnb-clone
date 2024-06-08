@@ -2,6 +2,7 @@
 
 import { revalidatePath } from "next/cache"
 import { getAccessCookie, handelCookies } from "./handelJWT"
+import { cookies } from "next/headers"
 
 
 
@@ -295,4 +296,19 @@ export async function toggleFavorite(propertyId: string) {
         const response = await res.json()
         return response.code
     }
+}
+export async function getProperties(query: string) {
+    const access = cookies().get("session_access_token");
+    const cookie = `${access?.name}=${access?.value}`;
+    const res = await fetch(`http://127.0.0.1:8000/api/properties/?${query}`, {
+        credentials: "include",
+
+        headers: {
+            "Content-Type": "application/json",
+            Cookie: cookie,
+        },
+        cache: "no-store",
+    });
+    // revalidatePath('/')
+    return await res.json();
 }

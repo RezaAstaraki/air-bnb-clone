@@ -3,6 +3,7 @@ import loginModal from './features/modal/loginSlice'
 import signup from './features/modal/signupSlice'
 import  authReducer  from './features/auth/authSlice'
 import addPropertyReducer from './features/modal/addPropertySlice'
+import searchReducer from './features/modal/searchSlice'
 
 
 
@@ -10,6 +11,7 @@ export const store = configureStore({
   reducer: {
     loginModal: loginModal,
     signup: signup,
+    search:searchReducer,
     auth: authReducer,
     addProperty :addPropertyReducer,
     

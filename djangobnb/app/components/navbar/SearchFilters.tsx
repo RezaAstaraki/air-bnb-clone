@@ -1,6 +1,11 @@
+"use client";
 import React from "react";
+import { openSearch } from "@/redux/features/modal/searchSlice";
+import { useDispatch } from "react-redux";
 
 const SearchFilters = () => {
+  const dispatch = useDispatch();
+
   return (
     <div className="h-[48px] lg:h-[64px] flex justify-between border rounded-full items-center flex-row">
       <div className="hidden lg:block">
@@ -24,7 +29,12 @@ const SearchFilters = () => {
         </div>
       </div>
       <div className="p-2">
-        <div className="cursor-pointer p-2 lg:p-4 bg-airbnb hover:bg-airbnb-dark transition rounded-full text-white">
+        <div
+          onClick={() => {
+            dispatch(openSearch());
+          }}
+          className="cursor-pointer p-2 lg:p-4 bg-airbnb hover:bg-airbnb-dark transition rounded-full text-white"
+        >
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 32 32"

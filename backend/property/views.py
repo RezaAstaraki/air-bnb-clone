@@ -1,11 +1,12 @@
+
+from rest_framework.decorators import api_view
+from django.db.models import Q
 from rest_framework_simplejwt import tokens
 from rest_framework.serializers import Serializer
 from rest_framework.decorators import api_view, authentication_classes, permission_classes
 from rest_framework.permissions import IsAuthenticated
 from rest_framework_simplejwt.authentication import JWTAuthentication
-
 from rest_framework import status
-
 from userAccount.models import User
 
 
@@ -24,7 +25,6 @@ from rest_framework.request import Request
 
 @api_view(['GET'])
 def property(request, id):
-    print(request.COOKIES)
     try:
         # Retrieve the property instance based on the provided UUID
         property_instance = Property.objects.get(id=id)
@@ -46,22 +46,68 @@ def property(request, id):
 
 @api_view(['GET'])
 def properties(request: Request):
+
+    minPrice = request.GET.get('minPrice')
+    maxPrice = request.GET.get('maxPrice')
+    startDate = request.GET.get('startDate')
+    endDate = request.GET.get('endDate')
+    bedrooms = request.GET.get('bedrooms')
+    bathrooms = request.GET.get('bathrooms')
+    country = request.GET.get('country')
+    guests = request.GET.get('guests')
     myfavorites = request.GET.get('myfavorites')
-    print(myfavorites)
     access = request.COOKIES.get('session_access_token')
-    all_properties = Property.objects.all()
+    categories = request.GET.get('category')
+
+    if startDate and endDate:
+        exact_matches = Reservation.objects.filter(
+            Q(start_date=startDate) | Q(end_date=endDate)
+        )
+        overlap_matches = Reservation.objects.filter(
+            start_date__lte=endDate, end_date__gte=startDate
+        )
+        all_matches = set(exact_matches.values_list('property_id', flat=True)) | \
+            set(overlap_matches.values_list('property_id', flat=True))
+        all_properties = Property.objects.exclude(id__in=all_matches)
+    else:
+        all_properties = Property.objects.all()
+
+    query_object = Q()
+
+    if categories:
+        for q in categories.split(','):
+            query_object |= Q(category=q)
+
+    if minPrice:
+        all_properties = all_properties.filter(price_per_night__gte=minPrice)
+    if maxPrice:
+        all_properties = all_properties.filter(price_per_night__lte=maxPrice)
+    if guests:
+        query_object &= Q(guests__gte=guests)
+    if bedrooms:
+        query_object &= Q(bedrooms__gte=bedrooms)
+    if bathrooms:
+        query_object &= Q(bathrooms__gte=bathrooms)
+    if country:
+        query_object &= Q(country=country)
+
+    all_properties = all_properties.filter(query_object)
 
     if access:
         acc = tokens.AccessToken(access)
-        user = User.objects.get(pk=acc.payload.get('user_id'))
+        user_id = acc.payload.get('user_id')
+        if user_id:
+            user = User.objects.get(pk=user_id)
 
-        if myfavorites:
-            all_properties = all_properties.filter(favorite=user)
+            if myfavorites:
+                all_properties = all_properties.filter(favorite=user)
 
-        p = PropertySerializer(all_properties, many=True,
-                               context={'user': user})
+            p = PropertySerializer(
+                all_properties, many=True, context={'user': user})
+        else:
+            p = PropertySerializer(all_properties, many=True)
     else:
-        p = PropertySerializer(all_properties, many=True,)
+        p = PropertySerializer(all_properties, many=True)
 
     return Response(data=p.data)
 
