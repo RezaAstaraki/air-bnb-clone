@@ -27,6 +27,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', endpoints_view),
     path('api/', include('property.urls')),
+    path('api/chat/', include('chat.urls')),
     path('api/', include('userAccount.urls')),
 
 ]

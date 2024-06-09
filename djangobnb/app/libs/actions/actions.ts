@@ -312,3 +312,26 @@ export async function getProperties(query: string) {
     // revalidatePath('/')
     return await res.json();
 }
+
+export async function getConversations() {
+    const access = await getAccessCookie();
+    const res = await fetch(`http://localhost:8000/api/chat/`,
+        
+        {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${access}`,
+            },
+            cache: 'no-cache'
+        }
+        
+    );
+    if (res.ok) {
+        const response = await res.json()
+        return response
+    } else {
+        throw new Error('can not get reservations')
+    }
+    
+}
