@@ -34,6 +34,14 @@ ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(',')
 
 CORS_ALLOW_ALL_ORIGINS = True
 
+# channel settings
+
+ASGI_APPLICATION = "'django_backend.asgi.application'"
+CHANNEL_LAYERS = {
+    "default": {
+        "BACKEND": "channels.layers.InMemoryChannelLayer"
+    }
+}
 
 # Application definition
 
@@ -47,6 +55,10 @@ INSTALLED_APPS = [
 
     "corsheaders",
 
+    "daphne",
+
+
+
     'rest_framework',
     'rest_framework_simplejwt',
 
@@ -57,7 +69,7 @@ INSTALLED_APPS = [
 
     'userAccount',
     'property',
-    'chat',
+    # 'chat',
 
 
 ]
@@ -75,6 +87,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
 
 ROOT_URLCONF = 'django_backend.urls'
 
