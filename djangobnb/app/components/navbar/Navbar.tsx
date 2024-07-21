@@ -21,10 +21,10 @@ const Navbar = async () => {
               />
             </div>
           </Link>
-          <div className="flex space-x-6">
+          <div className="flex flex-1 justify-center">
             <SearchFilters />
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center sm:space-x-3 lg:space-x-5">
             <AddPropertyButton />
             <UserNav />
           </div>

@@ -7,24 +7,24 @@ const SearchFilters = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="h-[48px] lg:h-[64px] flex justify-between border rounded-full items-center flex-row">
-      <div className="hidden lg:block">
-        <div className="flex flex-row justify-between items-center">
-          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-8">
+    <div className="h-[48px] lg:h-[64px] flex justify-between border rounded-full items-center flex-row lg:flex-1">
+      <div className="hidden lg:flex lg:flex-1 ">
+        <div className="flex   flex-1 flex-row justify-around items-center">
+          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-2">
             <p className="text-xs font-semibold">where</p>
-            <p className="text-sm">wanted location</p>
+            <p className="text-xs">wanted location</p>
           </div>
-          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-8">
+          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-2">
             <p className="text-xs font-semibold">Check in</p>
-            <p className="text-sm">Add dates</p>
+            <p className="text-xs">Add dates</p>
           </div>
-          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-8">
+          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-2">
             <p className="text-xs font-semibold">Check out</p>
-            <p className="text-sm">Add dates</p>
+            <p className="text-xs">Add dates</p>
           </div>
-          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-8">
+          <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-2">
             <p className="text-xs font-semibold">Who</p>
-            <p className="text-sm">Add guests</p>
+            <p className="text-xs">Add guests</p>
           </div>
         </div>
       </div>

@@ -11,7 +11,7 @@ const AddPropertyButton = () => {
   const dispatch = useDispatch();
   return (
     <div
-      className="cursor-pointer p-2 text-sm font-semibold rounded-full hover:bg-gray-100 select-none"
+      className="cursor-pointer p-2 text-sm font-semibold rounded-full hover:bg-gray-100 select-none border min-w-fit "
       onClick={() => {
         if (isAuth) {
           dispatch(openAddProperty());
@@ -20,7 +20,7 @@ const AddPropertyButton = () => {
         }
       }}
     >
-      DjangoBnb your home
+      Add Your Home
     </div>
   );
 };
