@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useDispatch } from "react-redux";
 import { logout } from "@/redux/features/auth/authSlice";
 import { resetCookies } from "@/app/libs/actions/handelJWT";
+import { revalidatePath } from "next/cache";
 
 const LogoutButton = ({ onClick }: { onClick: () => void }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const LogoutButton = ({ onClick }: { onClick: () => void }) => {
     <MenuLink
       onClick={async () => {
         await resetCookies();
+
         router.push("/");
         dispatch(logout());
         onClick();

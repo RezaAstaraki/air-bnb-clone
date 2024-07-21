@@ -109,7 +109,6 @@ const AddPropertyModal = () => {
             </label>
             <input
               type="number"
-              min={0}
               name="price"
               id="price"
               className="border-gray-300 border-2 py-2 px-2 rounded-xl self-start w-full"
@@ -127,7 +126,6 @@ const AddPropertyModal = () => {
             </label>
             <input
               type="number"
-              min={0}
               name="bedrooms"
               id="bedrooms"
               onChange={(e) => {
@@ -145,7 +143,6 @@ const AddPropertyModal = () => {
             </label>
             <input
               type="number"
-              min={0}
               name="bathrooms"
               id="bathrooms"
               onChange={(e) => {
@@ -163,7 +160,6 @@ const AddPropertyModal = () => {
             </label>
             <input
               type="number"
-              min={0}
               name="guests"
               id="guests"
               onChange={(e) => {
@@ -260,11 +256,10 @@ const AddPropertyModal = () => {
                 formData.append("image", image);
                 const res = await submitPropertyData(formData);
                 console.log(res);
+                dispatch(closeAddProperty());
               }
 
-              console.log("eeee");
               setIsLoading(false);
-              dispatch(closeAddProperty());
             }
           }}
           label={current === 5 ? "Submit" : "Next"}
