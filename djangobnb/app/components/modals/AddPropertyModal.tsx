@@ -238,7 +238,7 @@ const AddPropertyModal = () => {
             if (current < 5) {
               setCurrent((prev) => prev + 1);
             } else if (current === 5) {
-              // setIsLoading(true);
+              setIsLoading(true);
               if (
                 category &&
                 title &&
@@ -261,9 +261,10 @@ const AddPropertyModal = () => {
                 const res = await submitPropertyData(formData);
                 console.log(res);
               }
-              {
-              }
-              // setIsLoading(false);
+
+              console.log("eeee");
+              setIsLoading(false);
+              dispatch(closeAddProperty());
             }
           }}
           label={current === 5 ? "Submit" : "Next"}
