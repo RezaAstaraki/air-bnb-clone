@@ -55,7 +55,7 @@ INSTALLED_APPS = [
 
     "corsheaders",
 
-    "daphne",
+    # "daphne",
 
 
 
@@ -69,7 +69,7 @@ INSTALLED_APPS = [
 
     'userAccount',
     'property',
-    # 'chat',
+    'chat',
 
 
 ]
