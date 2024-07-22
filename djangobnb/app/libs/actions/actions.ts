@@ -219,6 +219,7 @@ export async function getPropertyReservationList(propertyId: string) {
     }
   );
   if (res.ok) {
+    revalidatePath('/myreservations')
     const response = await res.json();
     return response;
   }
