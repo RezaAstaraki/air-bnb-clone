@@ -203,6 +203,7 @@ export async function postBooking(formData: FormData, propertyId: string) {
       body: formData,
     }
   );
+  revalidatePath('/myreservations')
   revalidatePath(`/properties/${propertyId}/`);
 }
 
@@ -219,7 +220,7 @@ export async function getPropertyReservationList(propertyId: string) {
     }
   );
   if (res.ok) {
-    revalidatePath('/myreservations')
+    
     const response = await res.json();
     return response;
   }

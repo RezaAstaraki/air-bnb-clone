@@ -7,7 +7,7 @@ const SearchFilters = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="h-[48px] lg:h-[64px] flex justify-between border rounded-full items-center flex-row lg:flex-1">
+    <div className="h-[48px] lg:h-[64px] flex justify-between border rounded-full items-center flex-row lg:flex-1 max-w-[600px]">
       <div className="hidden lg:flex lg:flex-1 ">
         <div className="flex   flex-1 flex-row justify-around items-center">
           <div className="cursor-pointer h-[48px] lg:h-[64px] justify-center flex flex-col px-2">
