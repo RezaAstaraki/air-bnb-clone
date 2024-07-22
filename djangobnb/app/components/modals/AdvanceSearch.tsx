@@ -54,17 +54,27 @@ const AdvanceSearch = () => {
 
   const setQueries = () => {
     const query = new URLSearchParams();
-    query.append("minPrice", String(minPrice));
-    query.append("maxPrice", String(maxPrice));
+    if (Number(minPrice) > 0) {
+      query.append("minPrice", String(minPrice));
+    }
+    if (Number(maxPrice) > 0) {
+      query.append("maxPrice", String(maxPrice));
+    }
     if (dateRange.startDate) {
       query.append("startDate", format(dateRange.startDate, "yyyy-MM-dd"));
     }
     if (dateRange.endDate) {
       query.append("endDate", format(dateRange.endDate, "yyyy-MM-dd"));
     }
-    query.append("bedrooms", String(bedrooms));
-    query.append("guests", String(guests));
-    query.append("bathrooms", String(bathrooms));
+    if (Number(bedrooms) > 0) {
+      query.append("bedrooms", String(bedrooms));
+    }
+    if (Number(guests) > 0) {
+      query.append("guests", String(guests));
+    }
+    if (Number(bathrooms) > 0) {
+      query.append("bathrooms", String(bathrooms));
+    }
     return query.toString();
   };
 
@@ -209,18 +219,18 @@ const AdvanceSearch = () => {
               setCurrent((prev) => prev + 1);
             } else if (current === 3) {
               // setIsLoading(true);
-              if (
-                maxPrice &&
-                country &&
-                bedrooms &&
-                guests &&
-                maxPrice >= minPrice
-              ) {
-                const query = setQueries();
-                console.log(query);
-                router.push(`/?${query}`);
-                dispatch(closeSearch());
-              }
+              // if (
+              //   maxPrice &&
+              //   country &&
+              //   bedrooms &&
+              //   guests &&
+              //   maxPrice >= minPrice
+              // ) {
+              const query = setQueries();
+              console.log(query);
+              router.push(`/?${query}`);
+              dispatch(closeSearch());
+              // }
               // setIsLoading(false);
             }
           }}
